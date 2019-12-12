@@ -23,14 +23,26 @@
   (let [excludes @excludes]
     (res/response {:files (files/gorilla-filepaths-in-current-directory excludes)})))
 
+(defn explore-dir [[name dir]]
+  (info "exploring notebooks for repo " name " in " dir)
+  (->> (explore dir)
+       (map #(assoc % :repo name :root-dir dir))
+       (vec)))
 
 ;; API endpoint for file-system exploration
 ;; This returns not only filenames, but full meta-data
 
+(defn explore-dir [[name dir]]
+  (info "exploring notebooks for repo " name " in " dir)
+  (->> (explore dir)
+       (map #(assoc % :repo name :root-dir dir))
+       (vec)))
+
 (defn- explore-directories []
   (let [notebook-paths (sys/get-in-system [:config :config :explore-file-directories])
-        _ (info "notebook-paths is: " notebook-paths)
-        dirs (map explore notebook-paths)]
+        dirs (map explore-dir notebook-paths)
+        _ (info "dirs are: " dirs)
+        ]
     (reduce concat [] dirs)))
 
 

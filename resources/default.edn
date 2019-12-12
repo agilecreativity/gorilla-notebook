@@ -1,9 +1,8 @@
 {
  ; this file is read by de.otto.tesla
 
- :explore-file-directories ["./notebooks"
+ :explore-file-directories {:notebook "./notebooks"}
                             ;; "../sample-notebooks/notebooks"
-                            ]
 
  :status-url               "/status"
  :health-url               "/health"
@@ -23,25 +22,25 @@
  ;: :gorilla-repl-credentials-json  "....json"
  ;: :gorilla-repl-max.results 3
 
-;; :server-port              "9090"
+ ;; :server-port              "9090"
  ;; :middleware ""
- :routes "gorilla-repl.route/default-handler"
+ :routes                   "gorilla-repl.route/default-handler"
  ; use this if you need a grace-time during which
  ; the system reports unhealthy before shutting down.
  ;:wait-ms-on-stop "10000"
 
- :nrepl-port 7888
- :nrepl-host "localhost"
+ :nrepl-port               7888
+ :nrepl-host               "localhost"
 
  ;; Stuff as in leinigen project.clj
- :project {
-  ;; :port ~port
-  ;; :ip "0.0.0.0"
-  ;; :nrepl-port 7888
-  ;; :nrepl-host "localhost"
-  ;; :version ~gorilla-version
-  ;; :project ~project-name
-           #_:gorilla-options #_{:keymap {"command:worksheet:newBelow" "ctrl+b ctrl+t"
-                                          "command:worksheet:newAbove" "ctrl+b ctrl+q"}
-                                 :load-scan-exclude #{".git" ".svn"}}}
+ :project                  {
+                            ;; :port ~port
+                            ;; :ip "0.0.0.0"
+                            ;; :nrepl-port 7888
+                            ;; :nrepl-host "localhost"
+                            ;; :version ~gorilla-version
+                            ;; :project ~project-name
+                            #_:gorilla-options #_{:keymap            {"command:worksheet:newBelow" "ctrl+b ctrl+t"
+                                                                      "command:worksheet:newAbove" "ctrl+b ctrl+q"}
+                                                  :load-scan-exclude #{".git" ".svn"}}}
  }
