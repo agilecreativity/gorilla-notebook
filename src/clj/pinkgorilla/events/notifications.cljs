@@ -32,7 +32,7 @@
  :process-error-response
  (fn [db [_ location response]]
    (info "ERROR RESPONSE: " response)
-   (dispatch [::add-notification 
+   (dispatch [:notification-add
               (notification :warning 
                             (str location " Error: " (:status-text response) " (" (:status response) ")"))])
    db
