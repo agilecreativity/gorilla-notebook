@@ -119,6 +119,15 @@
                          )}
         "meta"]
 
+
+       [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            :on-click #(do
+                         (rf/dispatch [:save-notebook])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                         )}
+        "save"]
+
+
        [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
             :on-click #(do
                          (rf/dispatch [:app:saveas])
@@ -128,5 +137,5 @@
 
       ;; Menu Items Right
       [:div
-       [:a {:href "#" 
+       [:a {:href "#"
             :class "inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"} "Download"]]]]))

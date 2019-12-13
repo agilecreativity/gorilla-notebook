@@ -103,7 +103,9 @@
    :settings     {:default-kernel :clj
                   :editor :text
                   :github-token ""}
+   
    :storage nil
+   :storage-load-error nil
 
    ; explore:
    :projects     {:selected nil}

@@ -98,5 +98,10 @@
  (fn [db _]
    (:navbar-menu-active? db)))
 
+(reg-sub
+ :storage-load-error
+ (fn [db _]
+   (:storage-load-error db)))
+
 
 (info "reframe subscriptions loaded.")

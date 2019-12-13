@@ -1,23 +1,16 @@
 (ns pinkgorilla.repl
   (:require
-    ;; '[com.stuartsierra.component :as component]
-    ;; '[me.lomin.component-restart :as restart]
-    [nrepl.server :as nrepl :refer [start-server stop-server]]
-    [shadow.cljs.devtools.server :as shadow-server]
-    [cider.nrepl :as cider-nrepl]
-    ;; [cljs.build.api]
-    ;; [cljs.repl]
-    ;; [cljs.repl.node]
-    ;; [clojure.core.async :refer [go]]
-    [pinkgorilla.core :as core]
-    ;; [figwheel.main.api :refer [start start-join cljs-repl]]
-    [shadow.cljs.devtools.api :as shadow]
-    [shadow.cljs.devtools.server.nrepl :as shadow-nrepl]
+   [clojure.tools.logging :refer (info)]
+   [clojure.pprint :refer [pprint]]
+   [shadow.cljs.devtools.api :as shadow]
+   [shadow.cljs.devtools.server.nrepl :as shadow-nrepl]
+   [shadow.cljs.devtools.server :as shadow-server]
+   [nrepl.server :as nrepl :refer [start-server stop-server]]
+   [cider.nrepl :as cider-nrepl]
 
-    [clojure.pprint :refer [pprint]]
-    ;; [pinkgorilla.figwheel :as gfw :refer [main-config]]
+   [pinkgorilla.core :as core]
     ;; [pinkgorilla.system :as gsys]
-    ))
+   ))
 
 ;; (def system (atom (sys/create-figwheel-system cfg)))
 ;; (def system (atom (sys/figwheel-system cfg)))
@@ -109,6 +102,7 @@
 (defn -main
   {:shadow/requires-server true}
   [& args]
+  (info "dev.pinkgorilla.repl.-main starting with args: " args)
   (defonce nrepl-server (start-server :port 4001
                                       :handler (apply nrepl/default-handler
                                                       (map resolve (into cider-nrepl/cider-middleware

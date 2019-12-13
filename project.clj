@@ -31,11 +31,11 @@
                  [jarohen/chord "0.8.1"
                   :exclusions [com.cognitect/transit-clj
                                com.cognitect/transit-cljs]] ; websockets with core.async
-
+                 
                  [org.clojure/data.json "0.2.7"]
                  ;;  ring-json introduces jackson along with its tail - but so does cljs-ajax :/
                  ;; [ring/ring-json "0.4.0"]
-
+                 
                  ;; WEB SERVER
                  [ring "1.7.1"
                   ;; :exclusions [ring/ring-jetty-adapter]
@@ -62,13 +62,13 @@
                  [com.cemerick/pomegranate "1.1.0"]         ; add-dependency in clj kernel TODO : Replace pomegranate with tools alpha
                  [org.clojure/tools.cli "0.4.2"]
                  [clojail "1.0.6"]                          ; sandboxing
-
+                 
                  ;pinkgorilla sub projects
                  [org.pinkgorilla/gorilla-renderable "2.1.3"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
-                 [org.pinkgorilla/encoding "0.0.18"]        ; notebook encoding
-                 [irresponsible/tentacles "0.6.6"]          ; github api
-                 ; notebook exploration:
-                 [clj-time "0.15.2"]]
+                 [org.pinkgorilla/encoding "0.0.19"]        ; notebook encoding
+                 [org.pinkgorilla/explore "0.1.2"] ; notebook exploration
+                 [irresponsible/tentacles "0.6.6"]          ; github api (needed by encoding and explore)
+                 [clj-time "0.15.2"]] ; needed for notebook exploration ui
 
 
   ;; REPLIKATIV

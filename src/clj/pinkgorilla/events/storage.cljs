@@ -54,7 +54,22 @@
                    :timeout         15000
                    :response-format (ajax/json-response-format {:keywords? true})
                    :on-success      [:process-load-file-response storage]
-                   :on-failure      [::events/add-notification (notification :warning "load-notebook")]}})))
+                   :on-failure     [:process-load-file-response-error storage] }})))
+
+(reg-event-db
+ :process-load-file-response-error
+ [standard-interceptors]
+ (fn
+   [db [_ storage response-body]]
+   (dispatch [:notification-add (notification :warning "load-notebook")])
+   (let [_ (info "Load Response Error:\n" response-body)
+         content (:content response-body)
+         _ (info "Content Only:\n" content)
+         ]
+     (assoc db
+            :worksheet {:meta {}}
+            :storage-load-error content
+            :storage nil))))
 
 
 (reg-event-db
@@ -110,7 +125,7 @@
                    :format       (ajax/json-request-format {:keywords? true}) ; (ajax/transit-request-format) ;  (ajax/url-request-format) ; request encoding POST body url-encoded
                    :response-format (ajax/json-response-format {:keywords? true}) ;(ajax/transit-response-format) ;; response encoding TRANSIT
                    :on-success      [:after-save-success storage]
-                   :on-failure      [::events/add-notification (notification :warning "save-notebook")]}})))
+                   :on-failure      [:notification-add (notification :warning "save-notebook ERROR!!")]}})))
 
 
 (defn hack-gist [storage result db]
@@ -128,7 +143,7 @@
  (fn [db [_ storage result]]
    (info "storage is:" storage ", result is: " result)
    (do
-     (add-notification (notification :info "Notebook Saved."))
+     (add-notification (notification :info "Notebook Saved SUCCESSFULLY!"))
      (hack-gist storage result db))
    ;(routes/nav! (str "/edit?source=local&filename=" filename))
    ))

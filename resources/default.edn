@@ -1,7 +1,7 @@
 {
  ; this file is read by de.otto.tesla
 
- :explore-file-directories {:notebook "./notebooks"}
+ :explore-file-directories {:gorilla-unittest "./notebooks"}
                             ;; "../sample-notebooks/notebooks"
 
  :status-url               "/status"
