@@ -1,10 +1,15 @@
 ;; gorilla-repl.fileformat = 2
 
+;; @@ [meta]
+{:tags "clj,widget-state", :tagline "reagent widget state from clojure", :name ""}
+
+;; @@
+
 ;; **
 ;;; # Reagent Widgets with Dynamic State
 ;; **
 
-;; @@
+;; @@ [clj]
 ; Define Namespace for your notebook and require namespaces 
 (ns pacific-pond  
   (:require 
@@ -19,7 +24,7 @@
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 ; TEST to see if reagent atom widget-state is passed to reagent.
 ; Passing :h1 the full state is a little stupid because h1 cannot render specific properties of 
 ; the state. To do (:name :widget-state) we need full dynamic clojurescript compilation. 
@@ -33,7 +38,7 @@
 ;;; ["^ ","~:type","reagent","~:content",["h1","widget-state"],"~:value","[:h1 :widget-state]"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 ; TEST to Render custom made Reagent Component.
 (reagent! 
   '[widget.hello/love
@@ -46,7 +51,7 @@
 ;;; ["^ ","~:type","reagent","~:content",["love","beer"],"~:value","[widget.hello/love \"beer\"]"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 ; Test if the 2 love widgets render different text in the notebook if displayed at the same time.
 (reagent! 
   '[widget.hello/love
@@ -59,7 +64,7 @@
 ;;; ["^ ","~:type","reagent","~:content",["love","wine"],"~:value","[widget.hello/love \"wine\"]"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 ; TEST to see if a textbox will get rendered that is give the widget-state reagent atom
 (reagent! 
   '[text :widget-state :name])
@@ -71,7 +76,7 @@
 ;;; ["^ ","~:type","reagent","~:content",["text","widget-state","name"],"~:value","[text :widget-state :name]"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 ; TEST to render a different property.
 (reagent! 
   '[text :widget-state :time])
@@ -83,7 +88,7 @@
 ;;; ["^ ","~:type","reagent","~:content",["text","widget-state","time"],"~:value","[text :widget-state :time]"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 ; two textboxes in one reagent structure
 ; Change the text of the widget and you will see that the widgets above do change also!! :-)
 (reagent! 
@@ -103,7 +108,7 @@
 ;;; vega charts rendered with **reagent**
 ;; **
 
-;; @@
+;; @@ [clj]
 (reagent!
  '[:div
    [:p "sample vega plot:"]
@@ -116,14 +121,14 @@
 ;;; ["^ ","~:type","reagent","~:content",["div",["p","sample vega plot:"],["vega","https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json"]],"~:value","[:div [:p \"sample vega plot:\"] [vega \"https://raw.githubusercontent.com/vega/vega/master/docs/examples/bar-chart.vg.json\"]]"]
 ;; <=
 
-;; @@
+;; @@ [clj]
 
 ;; @@
 ;; ->
 ;;; 
 ;; <-
 
-;; @@
+;; @@ [clj]
 
 ;; @@
 ;; ->
