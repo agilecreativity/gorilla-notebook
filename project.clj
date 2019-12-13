@@ -68,8 +68,7 @@
                  [org.pinkgorilla/encoding "0.0.18"]        ; notebook encoding
                  [irresponsible/tentacles "0.6.6"]          ; github api
                  ; notebook exploration:
-                 [clj-time "0.15.2"]
-                 ]
+                 [clj-time "0.15.2"]]
 
 
   ;; REPLIKATIV
@@ -123,8 +122,7 @@
                "compile"
                "build-ci"
                "build-shadow-without-cljs-kernel"
-               "build-shadow-with-cljs-kernel"
-               ]
+               "build-shadow-with-cljs-kernel"]
 
   :release-tasks [["vcs" "assert-committed"]
                   ["bump-version" "release"]
@@ -146,8 +144,7 @@
             "watch-cards"                      ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "watch" ":cards"]
             "browser-test"                     ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":browser-test"]
             "build-shadow-with-cljs-kernel"    ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":app-with-cljs-kernel"]
-            "build-shadow-without-cljs-kernel" ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "release" ":app-without-cljs-kernel"]
-            }
+            "build-shadow-without-cljs-kernel" ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "release" ":app-without-cljs-kernel"]}
 
   :profiles {:dev     {:repl-options   {:init-ns          pinkgorilla.repl
                                         :port             4001
@@ -184,8 +181,7 @@
 
                        :resource-paths ^:replace ["resources" "target/cljsbuild" "env/dev/resources"]
 
-                       :plugins        [
-                                        ;; [refactor-nrepl "2.2.0" :exclusions [org.clojure/clojure]]
+                       :plugins        [;; [refactor-nrepl "2.2.0" :exclusions [org.clojure/clojure]]
                                         ]
 
                        :injections     [(require 'pjstadig.humane-test-output)
@@ -231,7 +227,8 @@
                                       ;; Reagent uses React and may rely on cljsjs externs. So better not use a webpack version of React.
                                       ;; [reagent-forms "0.5.27"]
                                       ;; [reagent-utils "0.2.0"]
-
+                                      [district0x.re-frame/google-analytics-fx "1.0.0"
+                                       :exclusions [re-frame]]
                                       ;; UI Components
                                       ;; [cljsjs/parinfer "1.8.1-0"]
                                       ;; Still helpful for externs!
@@ -256,17 +253,12 @@
                                       ;; https://github.com/day8/re-frame-tracer
                                       ;; [org.clojars.stumitchell/clairvoyant "0.2.1"]
                                       [day8.re-frame/re-frame-10x "0.4.5"]
-                                      [binaryage/devtools "0.9.11"]
-
-                                      ]
-
-                       }
+                                      [binaryage/devtools "0.9.11"]]}
              :uberjar {:hooks       [minify-assets.plugin/hooks]
                        :aot         :all
                        :omit-source true}
              :python  {:dependencies [[cnuernber/libpython-clj "1.13"]]
-                       :uberjar-name "gorilla-notebook-standalone-with-python.jar"}
-             }
+                       :uberjar-name "gorilla-notebook-standalone-with-python.jar"}}
   :shell {:commands {"open" {:windows ["cmd" "/c" "start"]
                              :macosx  "open"
                              :linux   "xdg-open"}}})

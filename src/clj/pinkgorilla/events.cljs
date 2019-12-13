@@ -7,6 +7,7 @@
    ["mousetrap-global-bind"]
 
    ;; event requires produce side effects (they register the event handlers)
+   [pinkgorilla.events.google-analytics]
    [pinkgorilla.events.common :refer [reg-set-attr]]
 
    [pinkgorilla.events.config]
