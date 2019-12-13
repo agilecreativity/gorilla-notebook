@@ -1,8 +1,11 @@
 {
  ; this file is read by de.otto.tesla
-
- :explore-file-directories {:gorilla-unittest "./notebooks"}
-                            ;; "../sample-notebooks/notebooks"
+ 
+ :explore-file-directories 
+ {:gorilla-unittest "./notebooks"
+  :gorilla-examples "../sample-notebooks/notebooks"
+  :backtest "/home/andreas/Documents/quant/backtest/gorilla"
+  :fundamental "/home/andreas/Documents/quant/clojureQuant/gorilla"}
 
  :status-url               "/status"
  :health-url               "/health"
@@ -10,25 +13,25 @@
  ; metering
  ;; :metering-reporter        "console"
  ;; :console-interval-seconds "100"
-
+ 
  ; activate graphite like this:
  ;:metering-reporter "graphite"
  ;:graphite-host "localhost"
  ;:graphite-port "2003"
  ;:graphite-prefix "my-app-prefix"
  ;:graphite-interval-seconds "60"
-
+ 
  ;: :gorilla-repl-app-name "gorilla-repl"
  ;: :gorilla-repl-credentials-json  "....json"
  ;: :gorilla-repl-max.results 3
-
+ 
  ;; :server-port              "9090"
  ;; :middleware ""
  :routes                   "gorilla-repl.route/default-handler"
  ; use this if you need a grace-time during which
  ; the system reports unhealthy before shutting down.
  ;:wait-ms-on-stop "10000"
-
+ 
  :nrepl-port               7888
  :nrepl-host               "localhost"
 

@@ -6,7 +6,9 @@
    [taoensso.timbre :refer-macros (info)]
    [clojure.string :as str]
    [ajax.core :as ajax]
-   [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx]]
+   [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx dispatch]]
+   [day8.re-frame-10x]
+   
    [pinkgorilla.notifications :as events :refer [add-notification notification]]
    [pinkgorilla.db :as db :refer [initial-db]]
    [pinkgorilla.keybindings :as keybindings]
@@ -61,5 +63,16 @@
    (-> (assoc-in db [:config] response)
        ;(assoc :message nil)
        )))
+
+
+(reg-event-db
+ :toggle.reframe10x
+ (fn [db _]
+   (let [visible (not (get-in db [:dev :reframe10x-visible?]))
+         ;_ (.setItem js/localStorage "day8.re-frame-10x.show-panel" (str visible))
+         _ (info "reframe-10x visible: " visible)
+        ; _ (dispatch [:settings/user-toggle-panel])
+         _ (day8.re-frame-10x/show-panel! visible)] ; https://github.com/day8/re-frame-10x/pull/210s
+     (assoc-in db [:dev :reframe10x-visible?] visible))))
 
 

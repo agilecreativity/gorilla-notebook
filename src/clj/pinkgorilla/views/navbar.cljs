@@ -1,6 +1,7 @@
 (ns pinkgorilla.views.navbar
   (:require
-   [reagent.core :as r :refer [atom]]
+    [taoensso.timbre :refer-macros (info)]
+   ;[reagent.core :as r :refer [atom]]
    [re-frame.core :as rf]
    [pinkgorilla.events.views :as views-events]
    [pinkgorilla.events :as events]
@@ -69,8 +70,66 @@
                       )}
         "save-as"]]]]))
 
+(def notebook-items
+  [:span.bg-green-700.pt-2.p-2
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+        :on-click #(do
+                     (rf/dispatch [:worksheet:evaluate-all])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                     )}
+    "evaluate all"]
+   
+    [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+         :on-click #(do
+                      (rf/dispatch [:worksheet:clear-all-output])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                      )}
+     "clear all output"]
+   
+   
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+        :on-click #(do
+                     (rf/dispatch [:dialog-show :meta])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                     )}
+    "meta"]
+
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+        :on-click #(do
+                     (rf/dispatch [:save-notebook])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                     )}
+    "save"]
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+        :on-click #(do
+                     (rf/dispatch [:app:saveas])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                     )}
+    "save-as"]
+   
+   
+   
+   ])
+
+(def developer-items
+  [:span.bg-red-700.pt-2.p-2
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+        :on-click #(do
+                     (rf/dispatch [:toggle.reframe10x])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                     )}
+    "toggle reframe-10x"]])
+
 (defn navbar-component []
-  (let [is-active? (rf/subscribe [:navbar-menu-is-active?])]
+  (let [is-active? (rf/subscribe [:navbar-menu-is-active?])
+        main (rf/subscribe [:main])
+        notebook  (rf/subscribe [:worksheet])
+        _ (info "main is: " @main " notebook :" @notebook)
+        ]
     [:nav {:class "flex items-center justify-between flex-wrap bg-teal-500 p-6 text-base"}
 
      ;; Logo
@@ -111,29 +170,17 @@
        [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             :on-click #(rf/dispatch [:dialog-show :settings])}
         "settings"]
-
-       [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
-            :on-click #(do
-                         (rf/dispatch [:dialog-show :meta])
-                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
-                         )}
-        "meta"]
-
-
-       [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-            :on-click #(do
-                         (rf/dispatch [:save-notebook])
-                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
-                         )}
-        "save"]
-
-
-       [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-            :on-click #(do
-                         (rf/dispatch [:app:saveas])
-                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
-                         )}
-        "save-as"]]
+       
+       ; show notebook-menu only when we are in notebook view and we have a valid notebook
+       (when (and (= @main :notebook)
+                  true ; (not (nil? notebook))
+                  )
+         notebook-items)
+       
+       ; developer menu - show only when in dev-mode
+       developer-items
+       
+       ]
 
       ;; Menu Items Right
       [:div

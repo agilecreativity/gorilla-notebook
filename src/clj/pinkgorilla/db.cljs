@@ -113,7 +113,10 @@
                              :update form-default
                              :search form-default}}
    :data         {:projects []}
-   :initialized true})
+   :initialized true
+   
+   :dev {:reframe10x-visible? false}
+   })
 
 
 

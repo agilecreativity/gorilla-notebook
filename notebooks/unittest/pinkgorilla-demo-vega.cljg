@@ -1,7 +1,7 @@
 ;; gorilla-repl.fileformat = 2
 
 ;; @@ [meta]
-{}
+{:tags "clj,vega", :tagline "vega from clojure", :name ""}
 
 ;; @@
 
