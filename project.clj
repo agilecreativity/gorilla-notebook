@@ -227,8 +227,8 @@
                                       ;; Reagent uses React and may rely on cljsjs externs. So better not use a webpack version of React.
                                       ;; [reagent-forms "0.5.27"]
                                       ;; [reagent-utils "0.2.0"]
-                                      [district0x.re-frame/google-analytics-fx "1.0.0"
-                                       :exclusions [re-frame]]
+                                      ;[district0x.re-frame/google-analytics-fx "1.0.0"
+                                      ; :exclusions [re-frame]]
                                       ;; UI Components
                                       ;; [cljsjs/parinfer "1.8.1-0"]
                                       ;; Still helpful for externs!

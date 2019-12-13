@@ -6,7 +6,7 @@
    [secretary.core :as secretary]
    [reagent.core :as ra]
    [re-frame.core :refer [dispatch-sync dispatch]]
-   [district0x.re-frame.google-analytics-fx]
+   [pinkgorilla.events.google-analytics]
    
    [pinkgorilla.subs] ; bring subs to scope
    [pinkgorilla.events] ; bring all events to scope
@@ -40,7 +40,7 @@
 
 (defn ^:export init! []
   ;(widget.replikativ/setup-replikativ)
-  (district0x.re-frame.google-analytics-fx/set-enabled! true)
+  (pinkgorilla.events.google-analytics/set-enabled! true)
   (routes/app-routes)
   (editor/init-cm-globally!)
   (v/init-mathjax-globally!)

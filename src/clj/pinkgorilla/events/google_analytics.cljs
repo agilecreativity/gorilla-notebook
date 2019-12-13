@@ -2,10 +2,23 @@
   (:require
    [clojure.string :as str]
    [taoensso.timbre :refer-macros (info)]
-   [re-frame.core :refer [reg-event-fx dispatch-sync dispatch]]
-   [district0x.re-frame.google-analytics-fx]))
+   [re-frame.core :refer [reg-fx reg-event-fx dispatch-sync dispatch]]
+   ;[district0x.re-frame.google-analytics-fx]
+   ))
 
-(reg-event-fx
- :ga-notebook-load
- (fn []
-   {:ga/event ["notebook" "load" "" 1 {}]}))
+(def ^:dynamic *enabled* true)
+
+(defn set-enabled! [enabled?]
+  (set! *enabled* enabled?))
+
+;; register a co-effect handler
+
+;; https://developers.google.com/analytics/devguides/collection/gtagjs/migration
+
+(reg-fx
+ :ga/event
+ (fn [[category]]
+   (when *enabled*
+     (js/gtag "event" (name category) ); label value (clj->js fields-object)
+            )))
+

@@ -46,8 +46,9 @@
          params (assoc storage
                        :storagetype stype
                        :tokens tokens)]
-     (dispatch [:ga-notebook-load])
+     ;(dispatch [:ga/event :notebook :load])
      {:db         (assoc-in db [:main] :notebook) ; notebook view on loading
+      :ga/event [:notebook-load]
       :http-xhrio {:method          :get
                    :uri             url
                    :params          params
