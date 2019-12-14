@@ -8,12 +8,12 @@
 
 (defn line-with-br [t]
   [:div
-   [:span t] 
+   [:span.font-mono.text-lg.whitespace-pre t] 
    [:br]])
 
 (defn text [t]
   (let [lines (str/split t #"\n")]
-    (into [:div {:gorilla-ui "text"}] (map line-with-br lines))
+    (into [:div {:gorilla_ui "text"}] (map line-with-br lines))
     ))
 
 

@@ -129,7 +129,7 @@
   (let [is-active? (rf/subscribe [:navbar-menu-is-active?])
         main (rf/subscribe [:main])
         notebook  (rf/subscribe [:worksheet])
-        _ (info "main is: " @main " notebook :" @notebook)
+        ;_ (info "main is: " @main " notebook :" @notebook)
         ]
     [:nav {:class "flex items-center justify-between flex-wrap bg-teal-500 p-6 text-base"}
 

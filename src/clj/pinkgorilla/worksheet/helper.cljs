@@ -5,6 +5,7 @@
 
    [dommy.core :as dom :refer-macros [sel1]]
    [pinkgorilla.editor.core :as editor]
+   [pinkgorilla.ui.text :refer [text]]
    ;[pinkgorilla.output.mathjax :refer [queue-mathjax-rendering]]
    ;[pinkgorilla-.output.hack :refer [value-wrap]]
    ))
@@ -33,7 +34,8 @@
   [:div.error-text text])
 
 (defn console-text [txt]
-  [:div.console-text txt])
+  [:div.console-text 
+   [text txt]])
 
 
 (defn exception [e]

@@ -1,9 +1,9 @@
 (ns pinkgorilla.events.kernel-toggle
   "events related to kernel switch"
   (:require
+   [taoensso.timbre :refer-macros (info)]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    ;[pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
-   [taoensso.timbre :refer-macros (info)]
    [pinkgorilla.notifications :refer [add-notification notification]]
    ))
 

@@ -1,5 +1,8 @@
 (ns pinkgorilla.events.kernel
+  "process results from the kernel and update notebook segments in app-db"
   (:require
+   [taoensso.timbre :refer-macros (info)]
+ ;  [clojure.string :as str]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    ;[pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
    ))
@@ -15,8 +18,12 @@
 (reg-event-db
  :evaluator:console-response
  (fn [db [_ seg-id response]]
-   (let [segment (get-in db [:worksheet :segments seg-id])]
-     (assoc-in db [:worksheet :segments seg-id] (merge segment response)))))
+   (let [segment (get-in db [:worksheet :segments seg-id])
+         _ (info "console response received: " response)]
+     ;(assoc-in db [:worksheet :segments seg-id] (merge segment response))
+    (update-in db [:worksheet :segments seg-id :console-response] str (:console-response response))
+   
+     )))
 
 (reg-event-db
  :evaluator:error-response
