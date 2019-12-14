@@ -115,9 +115,9 @@
   {:on-connect (fn [ws]
                  (info "Connect"))
    :on-error   (fn [ws e]
-                 (error "Error"))
+                 (error "Error" e))
    :on-close   (fn [ws status-code reason]
-                 (info "Close"))
+                 (info "Close" status-code reason))
    :on-text    (fn [ws text-message]
                  (debug "Text" " " text-message)
                  (let [session (:session ws)
