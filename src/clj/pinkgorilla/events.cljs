@@ -15,6 +15,7 @@
    [pinkgorilla.events.notifications]
    [pinkgorilla.events.palette]
    [pinkgorilla.events.views] ; main component in the browser / navbar
+   [pinkgorilla.events.auth2]
    
    [pinkgorilla.events.settings]
    [pinkgorilla.events.notebook]

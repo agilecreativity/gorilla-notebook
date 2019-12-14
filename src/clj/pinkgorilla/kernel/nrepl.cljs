@@ -2,20 +2,17 @@
   (:require-macros
    [cljs.core.async.macros :as asyncm :refer (go go-loop)])
   (:require
+   [taoensso.timbre :as timbre :refer-macros (info)]
    [cljs-uuid-utils.core :as uuid]
-   [reagent.core :as reagent]
-    ;; [cljs.core.match :refer-macros [match]]
-   [cljs.core.async :as async :refer (<! >! put! chan)]
-   [re-frame.core :refer [dispatch]]
    [clojure.walk :as w]
-   [taoensso.timbre :as timbre
-    :refer-macros (log trace debug info warn error fatal report
-                       logf tracef debugf infof warnf errorf fatalf reportf
-                       spy get-env log-env)]
-    ;; [com.stuartsierra.component :as component]
-    ;; [system.components.sente :refer [new-channel-socket-client]]
-    ;; [taoensso.sente :as sente :refer (cb-success?)]
+   [cljs.core.async :as async :refer (<! >! put! chan)]
+   ;; [cljs.core.match :refer-macros [match]]    
+   ;; [com.stuartsierra.component :as component]
+   ;; [system.components.sente :refer [new-channel-socket-client]]
+   ;; [taoensso.sente :as sente :refer (cb-success?)]
    [chord.client :refer [ws-ch]] ; websockets with core.async
+   [reagent.core :as reagent]
+   [re-frame.core :refer [dispatch]]
    [pinkgorilla.util :refer [ws-origin]]
    [pinkgorilla.notifications :refer [add-notification notification]]))
 
@@ -99,8 +96,12 @@
         cider-cb (get-in @ws-repl [:ciders id])]
     (info "Got message" id "for segment" segment-id)
     (cond
+
+      ;; messages that have a segment-id
       segment-id
       (cond
+
+        ;; value response
         ns
         (dispatch [:evaluator:value-response
                    segment-id
@@ -108,9 +109,12 @@
                                         js->clj
                                         w/keywordize-keys)}
                    ns]) ;; :ns ns
+
+        ;; console string
         out
         (dispatch [:evaluator:console-response segment-id {:console-response out}])
 
+        ;; eval error
         err
         ;; The logic here is a little complicated as cider-nrepl will send the stacktrace information back to
         ;; us in installments. So what we do is we register a handler for cider replies that accumulates the
@@ -130,17 +134,26 @@
                                                         (merge ex err)))
                                                     {:exception msg}))))))
 
+        ;; root exception ?? what is this ?? where does it come from ? cider? nrepl?
         root-ex
         (info "Got root-ex" root-ex "for" segment-id)
+
+        ;; evat status
         (>= (.indexOf status "done") 0)
         (do
           (swap! ws-repl dissoc [:evaluations id])
-          (dispatch [:evaluator:done-response segment-id])))
+          (dispatch [:evaluator:done-response segment-id]))) ;; end of messages that have segment-id
+
+      ;; part if the cond way above
+      ;; messages that have cider-id (completions and docstring, and more ??)
       cider-cb
       (do
         (cider-cb message)
         (if (and status (>= (.indexOf status "done") 0))
           (swap! ws-repl dissoc [:ciders id]))))))
+
+(defn set-clj-kernel-status [connected session-id]
+  (dispatch [:kernel-clj-status-set connected session-id]))
 
 
 (defn- receive-msgs!
@@ -151,14 +164,19 @@
       (if-let [new-session (get message "new-session")]
         (do
           (swap! ws-repl assoc :session-id new-session)
+          (set-clj-kernel-status true new-session)
           (go-loop []
             (let [{:keys [message error] :as msg} (<! server-ch)]
               (if message
                 (do
                   (process-msg message)
                   (recur))
-                (add-notification (notification :danger (str "clj-kernel Fatal Error: " error " - Game over")))))))
-        (add-notification (notification :danger (str "clj-kernel Fatal Error : " error " - Unable to create session. Game over")))))))
+                (do
+                  (add-notification (notification :danger (str "clj-kernel Fatal Error: " error " - Game over")))
+                  (set-clj-kernel-status false nil))))))
+        (do
+          (add-notification (notification :danger (str "clj-kernel Fatal Error : " error " - Unable to create session. Game over")))
+          (set-clj-kernel-status false nil))))))
 
 (defn- send-msgs! [new-msg-ch server-ch]
   (go-loop []
@@ -203,9 +221,8 @@
                                value (get message "value")
                                data  (-> (.parse js/JSON (.parse js/JSON value))
                                          js->clj
-                                         w/keywordize-keys)
-                               ]
-                           (when ns (let [v2 (cljs.reader/read-string (:value data)) ]
+                                         w/keywordize-keys)]
+                           (when ns (let [v2 (cljs.reader/read-string (:value data))]
                                       (do
                                         (.log js/console "clj-eval response: " data " type: " (type value))
                                         (.log js/console "clj-eval result: " v2 " type: " (type v2))
@@ -214,22 +231,20 @@
 
 (defn ^export clj-eval-sync [result-atom snippet]
   (let [result-chan (chan)]
-    (go 
-      (clj-eval snippet (fn [result] 
+    (go
+      (clj-eval snippet (fn [result]
                           (.log js/console (str "async evalued result: " result))
                           (put! result-chan result))))
-     (go (reset! result-atom (<! result-chan) )
-      )
+    (go (reset! result-atom (<! result-chan)))
     result-atom))
 
 
 
 (defn ^export clj [result-atom function-as-string & params]
   (let [_ (.log js/console "params: " params)
-        expr (concat [ "(" function-as-string] params [")"]) ; params)
+        expr (concat ["(" function-as-string] params [")"]) ; params)
         str_eval (clojure.string/join " " expr)
-        _ (.log js/console (str "Calling CLJ: " str_eval))
-        ]
+        _ (.log js/console (str "Calling CLJ: " str_eval))]
     ;expr
     ;str_eval
     (clj-eval-sync result-atom str_eval)

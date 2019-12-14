@@ -1,6 +1,6 @@
 (ns pinkgorilla.views.navbar
   (:require
-    [taoensso.timbre :refer-macros (info)]
+   [taoensso.timbre :refer-macros (info)]
    ;[reagent.core :as r :refer [atom]]
    [re-frame.core :as rf]
    [pinkgorilla.events.views :as views-events]
@@ -79,15 +79,15 @@
                       ;(rf/dispatch [::events/set-navbar-menu-active? false])
                      )}
     "evaluate all"]
-   
-    [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
-         :on-click #(do
-                      (rf/dispatch [:worksheet:clear-all-output])
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+        :on-click #(do
+                     (rf/dispatch [:worksheet:clear-all-output])
                       ;(rf/dispatch [::events/set-navbar-menu-active? false])
-                      )}
-     "clear all output"]
-   
-   
+                     )}
+    "clear all output"]
+
+
    [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
         :on-click #(do
                      (rf/dispatch [:dialog-show :meta])
@@ -109,11 +109,7 @@
                      (rf/dispatch [:app:saveas])
                       ;(rf/dispatch [::events/set-navbar-menu-active? false])
                      )}
-    "save-as"]
-   
-   
-   
-   ])
+    "save-as"]])
 
 (def developer-items
   [:span.bg-red-700.pt-2.p-2
@@ -123,12 +119,20 @@
                      (rf/dispatch [:toggle.reframe10x])
                       ;(rf/dispatch [::events/set-navbar-menu-active? false])
                      )}
-    "toggle reframe-10x"]])
+    "toggle reframe-10x"]
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+        :on-click #(do
+                     (rf/dispatch [:open-oauth-window :github])
+                      ;(rf/dispatch [::events/set-navbar-menu-active? false])
+                     )}
+    "github login"]])
 
 (defn navbar-component []
   (let [is-active? (rf/subscribe [:navbar-menu-is-active?])
         main (rf/subscribe [:main])
         notebook  (rf/subscribe [:worksheet])
+        kernel-connected (rf/subscribe [:kernel-clj-connected])
         ;_ (info "main is: " @main " notebook :" @notebook)
         ]
     [:nav {:class "flex items-center justify-between flex-wrap bg-teal-500 p-6 text-base"}
@@ -171,17 +175,23 @@
        [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             :on-click #(rf/dispatch [:dialog-show :settings])}
         "settings"]
-       
+
+       (if @kernel-connected
+         [:span {:class "block mt-4 lg:inline-block lg:mt-0 text-green-700 mr-4"}
+          [:i.fas.fa-play]]
+         [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white text-red-600 mr-4"
+              :on-click #(rf/dispatch [:kernel-clj-connect])
+              }
+          [:i.fas.fa-skull-crossbones]])
+
        ; show notebook-menu only when we are in notebook view and we have a valid notebook
        (when (and (= @main :notebook)
                   true ; (not (nil? notebook))
                   )
          notebook-items)
-       
+
        ; developer menu - show only when in dev-mode
-       developer-items
-       
-       ]
+       developer-items]
 
       ;; Menu Items Right
       [:div

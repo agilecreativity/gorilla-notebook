@@ -5,7 +5,8 @@
  ;  [clojure.string :as str]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    ;[pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
-   ))
+   [pinkgorilla.util :refer [application-url]]
+   [pinkgorilla.kernel.nrepl :refer [init!]]))
 
 (reg-event-db
  :evaluator:value-response
@@ -21,9 +22,7 @@
    (let [segment (get-in db [:worksheet :segments seg-id])
          _ (info "console response received: " response)]
      ;(assoc-in db [:worksheet :segments seg-id] (merge segment response))
-    (update-in db [:worksheet :segments seg-id :console-response] str (:console-response response))
-   
-     )))
+     (update-in db [:worksheet :segments seg-id :console-response] str (:console-response response)))))
 
 (reg-event-db
  :evaluator:error-response
@@ -53,4 +52,17 @@
     ;; TODO Should probably write to output cell
     ;; (js-debugger)
    (js/alert (.-message e) "for cell " seg-id)
+   db))
+
+(reg-event-db
+ :kernel-clj-status-set
+ (fn [db [_ connected session-id]]
+   (-> db
+       (assoc-in [:kernel-clj :connected] connected)
+       (assoc-in [:kernel-clj :session-id] session-id))))
+
+(reg-event-db
+ :kernel-clj-connect
+ (fn [db [_]]
+   (init! "repl/" (application-url))
    db))

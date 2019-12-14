@@ -4,8 +4,7 @@
   ; [cognitect.transit :as t]
   ; [re-frame.core :refer [dispatch-sync]]
    [cljs.reader]
-   [pinkgorilla.keybindings :refer [all-commands visible-commands]]
-  ))
+   [pinkgorilla.keybindings :refer [all-commands visible-commands]]))
 
 
 (def debug?
@@ -76,7 +75,7 @@
    :current-view :home
    :main :notebook ; integrate this to the way navbar works.
    :nav {}  ; todo: remove this - came form notebook explorer from open source clojure
-   
+
    ; old command palette
    :all-commands all-commands
    :palette      {;; TODO: We are (ab)using it for files and commands, "inherited" from js version
@@ -88,11 +87,11 @@
                   :filter               ""
                   :label                ""
                   :highlight            0}
-   
+
    ; notifications
    :notifications []
    :message      nil  ; TODO: remove message, after notification system works 100% ok
-   
+
    ; dialogs
    :dialog {:settings false
             :save false
@@ -103,9 +102,12 @@
    :settings     {:default-kernel :clj
                   :editor :text
                   :github-token ""}
-   
+
    :storage nil
    :storage-load-error nil
+
+   :kernel-clj {:connected false
+                :session-id nil}
 
    ; explore:
    :projects     {:selected nil}
@@ -114,9 +116,8 @@
                              :search form-default}}
    :data         {:projects []}
    :initialized true
-   
-   :dev {:reframe10x-visible? false}
-   })
+
+   :dev {:reframe10x-visible? false}})
 
 
 

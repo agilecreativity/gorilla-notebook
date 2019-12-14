@@ -103,5 +103,9 @@
  (fn [db _]
    (:storage-load-error db)))
 
+(reg-sub
+ :kernel-clj-connected
+ (fn [db _]
+   (get-in db [:kernel-clj :connected])))
 
 (info "reframe subscriptions loaded.")

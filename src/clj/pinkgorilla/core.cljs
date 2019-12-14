@@ -2,15 +2,13 @@
   (:require
    [clojure.string :as str]
    [taoensso.timbre :refer-macros (info)]
-   [cemerick.url :as url]
    [secretary.core :as secretary]
    [reagent.core :as ra]
    [re-frame.core :refer [dispatch-sync dispatch]]
    [pinkgorilla.events.google-analytics]
-   
    [pinkgorilla.subs] ; bring subs to scope
    [pinkgorilla.events] ; bring all events to scope
-   
+   [pinkgorilla.util :refer [application-url]]
    [pinkgorilla.prefs :as prefs]
    [pinkgorilla.views :as v]
    [pinkgorilla.editor.core :as editor]
@@ -44,7 +42,7 @@
   (routes/app-routes)
   (editor/init-cm-globally!)
   (v/init-mathjax-globally!)
-  (let [app-url (url/url (-> js/window .-location .-href))
+  (let [app-url (application-url)
         route (:anchor app-url)
         read-write (or (not route) (not (str/index-of route "/view")))]
     (dispatch-sync [:initialize-app-db app-url])
