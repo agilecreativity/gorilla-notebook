@@ -1,16 +1,16 @@
 (ns pinkgorilla.repl
   (:require
-   [clojure.tools.logging :refer (info)]
-   [clojure.pprint :refer [pprint]]
-   [shadow.cljs.devtools.api :as shadow]
-   [shadow.cljs.devtools.server.nrepl :as shadow-nrepl]
-   [shadow.cljs.devtools.server :as shadow-server]
-   [nrepl.server :as nrepl :refer [start-server stop-server]]
-   [cider.nrepl :as cider-nrepl]
+    [clojure.tools.logging :refer (info)]
+    [clojure.pprint :refer [pprint]]
+    [shadow.cljs.devtools.api :as shadow]
+    [shadow.cljs.devtools.server.nrepl :as shadow-nrepl]
+    [shadow.cljs.devtools.server :as shadow-server]
+    [nrepl.server :as nrepl :refer [start-server stop-server]]
+    [cider.nrepl :as cider-nrepl]
 
-   [pinkgorilla.core :as core]
+    [pinkgorilla.core :as core]
     ;; [pinkgorilla.system :as gsys]
-   ))
+    [pinkgorilla.cli :as cli]))
 
 ;; (def system (atom (sys/create-figwheel-system cfg)))
 ;; (def system (atom (sys/figwheel-system cfg)))
@@ -107,7 +107,8 @@
                                       :handler (apply nrepl/default-handler
                                                       (map resolve (into cider-nrepl/cider-middleware
                                                                          ['shadow.cljs.devtools.server.nrepl/middleware])))))
-  (start-system gorilla-default-cli-config)
+  (let [{:keys [options arguments errors summary]} (cli/parse-opts args)]
+    (start-system options))
   (shadow-server/start!)
   (shadow/watch cljs-build {:verbose true})
   ;; (start "dev")

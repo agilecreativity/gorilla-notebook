@@ -1,5 +1,5 @@
 (ns pinkgorilla.cli
-  (:require 
+  (:require
      [clojure.tools.cli :as cli]
      [clojure.string :as string]))
 
@@ -19,7 +19,7 @@
       :default nil
       :parse-fn #(Integer/parseInt %)
       :validate [#(< 0 % 0x10000) "Must be a number between 0 and 65536"]]
-     
+
      ["-h" "--nrepl-host HOST" "host of the nrepl server."
       :default nil
       ;; Specify a string to output in the default column in the options summary
@@ -30,14 +30,16 @@
       :default 9000
       :parse-fn #(Integer/parseInt %)
       :validate [#(< 0 % 0x10000) "Must be a number between 0 and 65536"]]
-     
+
      ["-H" "--ip IP" "IP of the GorillaREPL server."
       :default "localhost"
       ;; Specify a string to output in the default column in the options summary
       ;; if the default value's string representation is very ugly
       :default-desc "localhost"]
-
-     [nil "--project PROJECT" "name of the project."]
+     ["-c" "--runtime-config runtime-config" "Runtime config edn file"
+      :default nil
+      ]
+     ;; [nil "--project PROJECT" "name of the project."]
 
      [nil "--help"]]))
 
