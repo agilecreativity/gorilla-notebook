@@ -3,6 +3,7 @@
    [reagent.core :as reagent]
    [re-frame.core :refer [subscribe dispatch]]
    [re-catch.core :as rc]
+   [pinkgorilla.worksheet.code-cell-menu :refer [cell-menu]]
    [pinkgorilla.output.core :refer [output-fn]]
    [pinkgorilla.worksheet.helper :refer [init-cm! focus-active-segment error-text console-text exception]]))
 
@@ -59,16 +60,24 @@
                                                (if @is-queued
                                                  " running"
                                                  ""))
-                                    other-children [main-component
+                                    other-children [
+                                                    main-component
                                                     error-comp
                                                     ex-comp
                                                     console-comp
                                                     output-comp
                                                     footer-comp]]
-                                (apply conj [div-kw
-                                             {:class    class
-                                              :on-click #(dispatch [:worksheet:segment-clicked seg-id])}]
-                                       (filter some? other-children))))})))
+                                
+                                [:<>
+                                 (apply conj [div-kw
+                                              {:class    class
+                                               :on-click #(dispatch [:worksheet:segment-clicked seg-id])}]
+                                        (filter some? other-children))
+                                 ; menu is at bottom even though I want it n top, but codemirror is hard wired
+                                 ; and expects that code is first dom element
+                                 (if @is-active [cell-menu segment])
+                                 ]
+                                ))})))
 
 (defn code-segment [seg-data editor-options]
   [rc/catch
