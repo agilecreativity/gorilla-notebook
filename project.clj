@@ -75,7 +75,8 @@
   ;  [io.replikativ/replikativ "0.2.4"]
   ;  [com.cognitect/transit-cljs "0.8.239" :scope "provided"]
 
-  :plugins [[lein-environ "1.1.0"]                          ;; TODO Will likely be axed soon
+  :plugins [[lein-shell "0.5.0"]
+            [lein-environ "1.1.0"]                          ;; TODO Will likely be axed soon
             ;; tools.namespace "Unparsable namespace form:" ["parinfer-codemirror"]
             ;; quick hack is to temporarily rm .cljs files
             ;; [lein-hiera "1.1.0"] ; tools.namespace "Unparsable namespace form:" ["parinfer-codemirror"]
@@ -125,6 +126,7 @@
 
   :prep-tasks ["javac"
                "compile"
+               "tailwind-development"
                "build-ci"
                "build-shadow-without-cljs-kernel"
                "build-shadow-with-cljs-kernel"]
@@ -145,7 +147,8 @@
   :env {:production true}
 
   ;; We might chose to leverage the shell escape hatch to get out of dependency hell
-  :aliases {"build-ci"                         ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
+  :aliases {"tailwind-development"             ["shell" "npm" "run" "tailwind-development"]
+            "build-ci"                         ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
             "watch-cards"                      ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "watch" ":cards"]
             "browser-test"                     ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":browser-test"]
             "build-shadow-with-cljs-kernel"    ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":app-with-cljs-kernel"]
