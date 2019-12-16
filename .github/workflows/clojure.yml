@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run: lein deps
+      # run: lein deps
+      run: |
+        ./script/prepare.sh
+        lein deps
     - name: Run tests
       run: lein with-profile +cljs test
