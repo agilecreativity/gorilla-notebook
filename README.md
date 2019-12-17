@@ -1,6 +1,6 @@
 # Pink Gorilla Notebook
 
-[Pink Gorilla Notebook] (http://pink-gorilla.org) is a rich browser based notebook REPL for Clojure and ClojureScript,
+Pink Gorilla Notebook is a rich browser based notebook REPL for Clojure and ClojureScript,
 which aims at extensibility (development- and runtime) and user experience while being very lightweight.
 Extensibility primarily revolves around UI widgets and data.
 
@@ -34,9 +34,14 @@ docker run --rm -p 9000:9000 -v `pwd`/sample-notebooks/samples:/work/sample-note
 
 If you want to bring your own java, make sure to use jdk 8 for now.
 
-The following should get you the uberjar:
+Install `npm` dependencies:
 ```
-LEIN_SNAPSHOTS_IN_RELEASE=1 lein do clean, uberjar
+./scipt/prepare.sh
+```
+
+The following should then get you the uberjar:
+```
+./script/build-uberjar.sh
 ```
 The uberjar is what the docker image uses. It can be run by executing
 
@@ -49,7 +54,7 @@ The uberjar may also work by just dropping it into another webapp (in `WEB-INF/l
 `.../your-app-context/gorilla-repl/worksheet.html`.
 
 ```
-lein do clean, ring uberwar
+./script/build-uberwar.sh
 ```
 should give you the standalone war file. Drop it into your servlet container and visit the root url of the webapp.
 
@@ -60,16 +65,10 @@ should give you the standalone war file. Drop it into your servlet container and
 runs `lein repl`, with JPDA debugging, `rlwrap` for convenience and spins up the server. NREPL should be up at
  port 4001. Once jacked in, run `(start "dev")` to launch the figwheel server.
 
-Finally, go to
- - [`http://localhost:9000/worksheet.html`](http://localhost:9000/worksheet.html) for the app
- - [`http://localhost:9000/devcards.html`](http://localhost:9000/devcards.html) for devcards
- - [`http://localhost:3449/figwheel-extra-main/auto-testing`](http://localhost:3449/figwheel-extra-main/auto-testing)
-  for figwheels built in auto-testing
+Finally, go to [`http://localhost:9000/worksheet.html`](http://localhost:9000/worksheet.html) for the app
 
-To compile ClojureScript and run the main entrypoint, execute
-```
-lein do cljsbuild once, run
-```
+There are various scripts in `./script` and there is also a bunch of aliases in `project.clj` you might want
+ to check.
 
 ## Configuration
 
