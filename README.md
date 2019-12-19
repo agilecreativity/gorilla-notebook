@@ -23,10 +23,21 @@ The easiest (but not the fastest ;) way to run it locally is leveraging the cli 
 ```
 clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core
 ```
-Or indirectly by using the clojure docker image:
+You'll get available command line options appending `--help`:
 ```
-docker run -p 9000:9000 --rm clojure:tools-deps clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core
+clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core --help
 ```
+so
+```
+clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core -P 9111
+```
+will start up the HTTP server at port 9111.
+
+Alternatively, you can use the clojure docker image:
+```
+docker run -p 9000:9000 -v `pwd`/.m2:/root/.m2:rw -v `pwd`/notebooks:/tmp/notebooks:rw --rm clojure:tools-deps clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core
+```
+You may want to use the two bind mounts to retain your work and to prevent downloading half of the internet.
 
 We also provide uberjar docker images which can be run as follows:
 ```
@@ -45,7 +56,7 @@ If you want to bring your own java, make sure to use jdk 8 for now.
 
 Install `npm` dependencies:
 ```
-./scipt/prepare.sh
+./script/prepare.sh
 ```
 
 The following should then get you the uberjar:
@@ -68,11 +79,15 @@ The uberjar may also work by just dropping it into another webapp (in `WEB-INF/l
 should give you the standalone war file. Drop it into your servlet container and visit the root url of the webapp.
 
 ```
+lein with-profile +cljs tailwind-development
+```
+will build CSS once.
+```
 ./script/run-repls-with-jpda.sh
 ```
 
 runs `lein repl`, with JPDA debugging, `rlwrap` for convenience and spins up the server. NREPL should be up at
- port 4001. Once jacked in, run `(start "dev")` to launch the figwheel server.
+ port 4001.
 
 Finally, go to [`http://localhost:9000/worksheet.html`](http://localhost:9000/worksheet.html) for the app
 

@@ -21,8 +21,9 @@
 
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.11.2/css/all.min.css"
-        integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/tailwind.css"/>
+    <!--link rel="stylesheet" href="https://pagecdn.io/lib/font-awesome/5.11.2/css/all.min.css"
+        integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"-->
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 
@@ -117,7 +118,7 @@
                     document.title = title + " " + seq[idx];
                     setTimeout(setTitle(i + 1), pause);
                 };
-    
+
             }
             setTimeout(setTitle(0), pause);
         })();
