@@ -39,7 +39,7 @@
        (vec)))
 
 (defn- explore-directories []
-  (let [notebook-paths (sys/get-in-system [:config :config :explore-file-directories])
+  (let [notebook-paths (sys/get-in-system [:config :config :app :explore-file-directories])
         dirs (map explore-dir notebook-paths)
         _ (info "dirs are: " dirs)
         ]
