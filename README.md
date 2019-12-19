@@ -19,7 +19,16 @@ We are a  is a decendant of [Gorilla REPL](http://gorilla-repl.org).
 
 ## Usage / Development
 
-The easiest way to run it locally is by leveraging the docker image:
+The easiest (but not the fastest ;) way to run it locally is leveraging the cli (directly)
+```
+clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core
+```
+Or indirectly by using the clojure docker image:
+```
+docker run -p 9000:9000 --rm clojure:tools-deps clojure -Sdeps '{:deps {org.pinkgorilla/gorilla-notebook {:mvn/version "0.4.0"}}}' -m pinkgorilla.core
+```
+
+We also provide uberjar docker images which can be run as follows:
 ```
 docker run --rm -p 9000:9000 pinkgorillawb/gorilla-notebook
 ```
