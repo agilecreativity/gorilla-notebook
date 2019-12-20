@@ -182,12 +182,22 @@
                 'vega-lite': 'https://cdn.jsdelivr.net/npm/vega-lite?noext',
                 'vega': 'https://cdn.jsdelivr.net/npm/vega?noext',
 
+                // LEGACY VEGA 
+                'lvega-embed': 'https://cdn.jsdelivr.net/npm/vega-embed@2.26.1?noext',
+                'lvega-lite': 'https://cdn.jsdelivr.net/npm/vega-lite@1.3.1?noext',
+                'lvega': 'https://cdn.jsdelivr.net/npm/vega@2.6.5?noext',
+                'lvega-dataflow': 'https://cdn.jsdelivr.net/npm/vega-dataflow@2.2.0?noext',
+
                 'highcharts': 'https://code.highcharts.com/7.0.3/highcharts' // .js extension is added automatically
             },
             shim: {
                 // VEGA dependencies
                 "vega-lite": { deps: ["vega"] },
-                "vega-embed": { deps: ["vega-lite"] }
+                "vega-embed": { deps: ["vega-lite"] },
+
+                "lvega-vega": { deps: ["lvega-dataflow"] },
+                "lvega-lite": { deps: ["lvega"] },
+                "lvega-embed": { deps: ["lvega-lite"] }
             }
 
         });

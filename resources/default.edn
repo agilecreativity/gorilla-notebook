@@ -6,7 +6,8 @@
  ;; The following end up (get-in @db [:settings :service])
  :settings   {:dev-aids          true
               :explore-file-directories
-                                 {:gorilla-unittest "./notebooks"}
+                                 {:gorilla-unittest "./notebooks"
+                                  :geschichte "../ui-geschichte/notebooks"}
               :load-scan-exclude #{".git" ".svn"}}
  ; metering
  ;; :metering-reporter        "console"
