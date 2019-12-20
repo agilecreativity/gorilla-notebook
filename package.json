@@ -29,6 +29,7 @@
     "tailwindcss": "^1.1.4"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
     "@fullhuman/postcss-purgecss": "^1.3.0",
     "autoprefixer": "^9.7.3",
     "concurrently": "^5.0.1",

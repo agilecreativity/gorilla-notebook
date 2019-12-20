@@ -19,6 +19,16 @@
     @apply bg-blue-700;
 }
 
+.pg-cell-actions {
+    /* no pseudo selectors / media props in @apply */
+    @apply block mt-0 text-teal-200 mr-4 p-1;
+    /* @apply block lg:inline-block mt-0 text-teal-200 hover:bg-orange-500 mr-4 p-1; */
+}
+
+.pg-cell-move {
+   @apply block mt-4 text-teal-200 blue-700
+}
+
 /*
 @variants focus, pg-hover {
     .rotate-0 {
