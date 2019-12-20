@@ -1,6 +1,6 @@
 (ns pinkgorilla.system
   (:require
-   ;; [clojure.tools.logging :as log]
+   [clojure.tools.logging :refer (info)]
    [com.stuartsierra.component :as component]
    [de.otto.tesla.system :as system]
    [de.otto.tesla.serving-with-jetty :as tesla-jetty]
@@ -16,6 +16,10 @@
 ;; (keys @gorilla-system)
 (defn get-in-system [path]
   (get-in @system path))
+
+(defn get-setting [path]
+  (get-in @system (vec (concat [:config :config :settings] path))))
+
 
 (defn gorilla-system [runtime-config]
   (-> (system/base-system (merge {:name "gorilla-service"} runtime-config))
@@ -36,4 +40,4 @@
   ;; We just support one system for the moment
   (reset! system
           (system/start
-            (gorilla-system config))))
+           (gorilla-system config))))

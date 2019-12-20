@@ -7,7 +7,8 @@
  :settings   {:dev-aids          true
               :explore-file-directories
                                  {:gorilla-unittest "./notebooks"
-                                  :geschichte "../ui-geschichte/notebooks"}
+                                  :geschichte "../ui-geschichte/notebooks"
+                                  :fquant "../../quant/clojureQuant/gorilla"}
               :load-scan-exclude #{".git" ".svn"}}
  ; metering
  ;; :metering-reporter        "console"
