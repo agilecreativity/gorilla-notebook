@@ -3,7 +3,8 @@
  ; this file is read by de.otto.tesla
  :status-url "/status"
  :health-url "/health"
- :app        {:dev-aids          true
+ ;; The following end up (get-in @db [:settings :service])
+ :settings   {:dev-aids          true
               :explore-file-directories
                                  {:gorilla-unittest "./notebooks"}
               :load-scan-exclude #{".git" ".svn"}}

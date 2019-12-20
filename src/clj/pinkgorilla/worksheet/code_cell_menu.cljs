@@ -7,7 +7,8 @@
   [:div {:class [:font-sans :flex :flex-col :text-center :sm:flex-row :sm:text-left :sm:justify-between :px-6 :bg-white :sm:items-baseline :w-full]}
 
    ;; Kernel (clj/cljs)
-   [:div.mb-1.bg-yellow-300.shadow
+   ;; TODO: Not yet ready for master
+   #_[:div.mb-1.bg-yellow-300.shadow
     [:p.text-lg.p-1  {:on-click #(dispatch [:app:kernel-toggle])}
      (:kernel @segment)]]
 

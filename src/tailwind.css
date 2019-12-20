@@ -26,7 +26,7 @@
 }
 
 .pg-cell-move {
-   @apply block mt-4 text-teal-200 blue-700
+   @apply block mt-4 text-teal-200; /*  blue-700 */
 }
 
 /*

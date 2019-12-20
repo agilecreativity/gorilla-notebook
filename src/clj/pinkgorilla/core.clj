@@ -48,7 +48,7 @@
                  "pinkgorilla.route/default-handler")
         gorilla-port-file (io/file (or (:gorilla-port-file conf) ".gorilla-port"))
         ;; project (or (:project conf) {})
-        keymap (or (:keymap (:gorilla-options conf)) {})
+        ;; keymap (or (:keymap (:gorilla-options conf)) {})
         _ (update-excludes (fn [x] (set/union x (:load-scan-exclude (:gorilla-options conf)))))]
     ;; app startup
     (println "Gorilla-REPL:" version)
@@ -70,12 +70,6 @@
           ;; webapp-port (-> s (get-in [:server :httpkit]) .getPort)
           ]
       (spit (doto gorilla-port-file .deleteOnExit) webapp-port)
-      ;; build config information for client
-      ;; (handle/set-config :project project)
-      (handle/set-config :keymap keymap) ; TODO likely also not something we want from the server
-      (handle/set-config :app
-                         (sys/get-in-system [:config :config :app]))
-
       (println (str "Running at http://" ip ":" webapp-port "/worksheet.html ."))
       s)))
 

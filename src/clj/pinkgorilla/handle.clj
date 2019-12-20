@@ -19,6 +19,7 @@
    [ring.util.response :as res]
     ;; [org.httpkit.client :as http]
     ;; [ring.middleware.webjars :refer [wrap-webjars]]
+   [pinkgorilla.system :as sys]
    [pinkgorilla.storage.files :as files]))
 
 (defn redirect-app
@@ -47,12 +48,14 @@
 ;; API endpoint for getting webapp configuration information
 (defn config
   [req]
-  (res/response @conf))
+  (res/response (sys/get-in-system [:config :config :settings]))
+  ;; (res/response @conf)
+  )
 
 
 
 ;; configuration information that will be made available to the webapp
-(defn set-config
+#_(defn set-config
   [k v]
   (swap! conf assoc k v))
 

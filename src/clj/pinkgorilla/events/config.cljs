@@ -1,5 +1,5 @@
 (ns pinkgorilla.events.config
-  "events related to 
+  "events related to
    app-db init
    configuration loading"
   (:require
@@ -8,7 +8,7 @@
    [ajax.core :as ajax]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx dispatch]]
    [day8.re-frame-10x]
-   
+
    [pinkgorilla.notifications :as events :refer [add-notification notification]]
    [pinkgorilla.db :as db :refer [initial-db]]
    [pinkgorilla.keybindings :as keybindings]
@@ -60,9 +60,11 @@
  :process-config-response
  [install-commands]
  (fn [db [_ response]]
-   (-> (assoc-in db [:config] response)
-       ;(assoc :message nil)
-       )))
+   (-> (-> (assoc-in db [:config] response)
+           ;; (assoc-in db [:settings :service] (:settings response)
+                     )
+           ;(assoc :message nil)
+           )))
 
 
 (reg-event-db

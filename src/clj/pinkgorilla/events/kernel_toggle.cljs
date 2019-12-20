@@ -1,5 +1,6 @@
 (ns pinkgorilla.events.kernel-toggle
-  "events related to kernel switch"
+  "Events related to kernel switch"
+  ;; TODO : Not ready for master yet
   (:require
    [taoensso.timbre :refer-macros (info)]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
