@@ -9,13 +9,20 @@
 ; add-dependencies   
 
 (defn add-dependencies
-  "Use Pomegranate to add dependencies with Maven Central and Clojars as
-  default repositories.
-  Same Syntax as clojupyter"
+  "Use Pomegranate to add dependencies 
+   with Maven Central and Clojars as default repositories.
+   Same Syntax as clojupyter"
   [dependencies & {:keys [repositories]
                    :or {repositories {"central" "https://repo1.maven.org/maven2/"
                                       "clojars" "https://clojars.org/repo"}}}]
-  (pg/add-dependencies :coordinates `[~dependencies]
-                       :repositories repositories))
+  (let [first-item (first dependencies)]
+    (if (vector? first-item)
+      ; [ [dep1] [dep2]]
+      (pg/add-dependencies :coordinates `~dependencies
+                           :repositories repositories)
+      ; [dep1]
+      (pg/add-dependencies :coordinates `[~dependencies]
+                           :repositories repositories)
+      )))
 
 

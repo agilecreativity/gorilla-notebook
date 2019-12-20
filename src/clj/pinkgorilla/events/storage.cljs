@@ -78,7 +78,7 @@
  [standard-interceptors]
  (fn
    [db [_ storage response-body]]
-   (let [_ (info "Load Response:\n" response-body)
+   (let [;_ (info "Load Response:\n" response-body)
          content (:content response-body)
          ;content (decode-content storage content)
          ; _ (info "Content Only:\n" content)

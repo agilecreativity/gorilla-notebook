@@ -1,6 +1,5 @@
 (ns pinkgorilla.system
   (:require
-   [clojure.tools.logging :refer (info)]
    [com.stuartsierra.component :as component]
    [de.otto.tesla.system :as system]
    [de.otto.tesla.serving-with-jetty :as tesla-jetty]
