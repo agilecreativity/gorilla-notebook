@@ -17,9 +17,14 @@
                                      :build-options    {:ns-aliases {pinkgorilla.kernel.cljs pinkgorilla.kernel.shadowcljs}}
                                      :output-dir       "target/cljsbuild/gorilla-repl-client/js/cljs"
                                      :asset-path       "./js/cljs"
+                                     :js-options {:minimize-require false ; module requires full name instead of index
+                                                  ;:js-package-dirs ["packages/babel-worker/node_modules"]
+                                                  ;:js-provider :require
+                                                  } 
                                      :compiler-options {;; preferrably implicit by shadow-cljs compile/watch/release
                                                         ;; Beware: releasing :none not supported by shadow
                                                         ;; :optimizations   :none
+                                                        :optimizations :simple ; self-hosted cljs 
                                                         :external-config {:gorilla/config {:with-cljs-kernel true}}
                                                         :externs         ["src/cljs/gorilla-repl-externs.js"]}
                                      :modules          {:gorilla {:entries [pinkgorilla.app]}}}
@@ -63,6 +68,10 @@
                                      ;; :output-to        "target/cljsbuild/gorilla-repl-client/js/gorilla.js"
                                      :output-dir       "target/cljsbuild/gorilla-repl-client/js/cljs"
                                      :asset-path       "./js/cljs"
+                                      :js-options {:minimize-require false ; module requires full name instead of index
+                                                  ;:js-package-dirs ["packages/babel-worker/node_modules"]
+                                                  ;:js-provider :require
+                                                   }
                                      :compiler-options {:optimizations   :simple
                                                         :external-config {:gorilla/config {:with-cljs-kernel true}}
                                                         :closure-defines {re_frame.trace.trace_enabled? true}
@@ -75,21 +84,19 @@
                                                                   }
                                                         ;; :devcards
                                                         #_{:entries    [pinkgorilla.cards]
-                                                           :depends-on #{:core}}
-                                                        }
+                                                           :depends-on #{:core}}}
                                      :devtools         {:http-root "out/public"
                                                         :http-port 8702
                                                         ;; Just in case we really want this:
                                                         ;; https://clojureverse.org/t/improving-initial-load-time-for-browser-builds-during-development/2518
                                                         ;; :loader-mode :script
                                                         :preloads
-                                                                   [pinkgorilla.dev-preload
-                                                                    devtools.preload
+                                                        [pinkgorilla.dev-preload
+                                                         devtools.preload
                                                                     ;; frisk is the plain reagent version w/o re-frame
                                                                     ;; frisk.preload
                                                                     ;; re-frisk.preload
-                                                                    day8.re-frame-10x.preload
-                                                                    ]
+                                                         day8.re-frame-10x.preload]
 
                                                         ;; :http-handler     shadow.http.push-state/handle
                                                         ;; :push-state/index "devcards.html"

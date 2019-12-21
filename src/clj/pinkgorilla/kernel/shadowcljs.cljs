@@ -21,9 +21,9 @@
                     reagent.core
                     pinkgorilla.shadow
                     module$node_modules$moment$moment   ; namespace convention of shadow-cljs for npm modules
-                    ;ajax.core ; http requests
-                   ; pinkgorilla.ui.leaflet
-                   ; pinkgorilla.ui.player ; video player
+                    ajax.core ; http requests
+                    pinkgorilla.ui.leaflet
+                    pinkgorilla.ui.player ; video player
                     pinkgorilla.ui.sparklines ; sparkline charts
                     
                     }})
