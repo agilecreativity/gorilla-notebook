@@ -58,6 +58,7 @@
 
 (reg-event-fx
   :process-config-response
+  [install-commands]
   (fn [cofx [_ response]]
     {:db        (assoc-in (:db cofx) [:config] response)
      :dispatch [:init-cljs]}))   ;; return effects
