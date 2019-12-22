@@ -7,7 +7,7 @@
    [cljs-uuid-utils.core :as uuid]
    [re-frame.core :refer [dispatch]]))
 
-(defn init! []
+(defn init! [config]
   (info "mock init done"))
 
 (defn send-result [segment-id result]

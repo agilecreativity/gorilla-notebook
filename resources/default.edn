@@ -3,13 +3,27 @@
  ; this file is read by de.otto.tesla
  :status-url "/status"
  :health-url "/health"
- ;; The following end up (get-in @db [:settings :service])
- :settings   {:dev-aids          true
+ ;; TODO: The following ends up (get-in @db [:config]). CANNOT be nested in settings bc the latter is backed by local-storage
+ :settings   {; TODO ClojureScript kernel settings may interfere with the build chosen
+              :cljs {:path         "http://localhost:2705/out/gorilla" ; base url of dependency server / bundle that gets loaded
+                     ; namespaces that will get loaded into the cljs kernel via our dependency server
+                     :load-on-init '#{fortune.core
+                                      awb99.shapes.core
+                                      quil.core
+                                      quil.middleware
+                                      ;quil.sketch
+                                      ;quil.util
+                                      reagent.core
+                                      pinkgorilla.shadow
+                                      module$node_modules$moment$moment   ; namespace convention of shadow-cljs for npm modules
+                                      ajax.core ; http requests
+                                      pinkgorilla.ui.leaflet
+                                      pinkgorilla.ui.player ; video player
+                                      pinkgorilla.ui.sparklines ; sparkline charts
+                                      }}
+              :dev-aids          true
               :explore-file-directories
-                                 {:gorilla-unittest "./notebooks"
-                                  :samples "../sample-notebooks/samples"
-                                  :geschichte "../ui-geschichte/notebooks"
-                                  :fquant "../../quant/clojureQuant/gorilla"}
+                                 {:gorilla-unittest "./notebooks"}
               :load-scan-exclude #{".git" ".svn"}}
  ; metering
  ;; :metering-reporter        "console"

@@ -5,7 +5,7 @@
  ;  [clojure.string :as str]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    ;[pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
-   [pinkgorilla.util :refer [application-url]]
+   [pinkgorilla.util :refer [application-url ws-origin]]
    [pinkgorilla.kernel.nrepl :refer [init!]]))
 
 (reg-event-db
@@ -64,5 +64,5 @@
 (reg-event-db
  :kernel-clj-connect
  (fn [db [_]]
-   (init! "repl/" (application-url))
+   (init! (ws-origin "repl/" (application-url)))
    db))

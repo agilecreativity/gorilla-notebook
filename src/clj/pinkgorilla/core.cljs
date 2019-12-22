@@ -8,7 +8,7 @@
    [pinkgorilla.events.google-analytics]
    [pinkgorilla.subs] ; bring subs to scope
    [pinkgorilla.events] ; bring all events to scope
-   [pinkgorilla.util :refer [application-url]]
+   [pinkgorilla.util :refer [application-url ws-origin]]
    [pinkgorilla.prefs :as prefs]
    [pinkgorilla.views :as v]
    [pinkgorilla.editor.core :as editor]
@@ -46,17 +46,19 @@
         route (:anchor app-url)
         read-write (or (not route) (not (str/index-of route "/view")))]
     (dispatch-sync [:initialize-app-db app-url])
-    (mount-root)
-    (add-notification (notification :warning "The sky is blue. Gorillas are Pink."))
+    ;; TODO config (+ settings-local-storage) init should kick of cljs-init
     (dispatch-sync [:settings-localstorage-load])
-    (cljs-kernel/init!)
+    (dispatch-sync [:initialize-config])
+    (mount-root)
+    ;; (add-notification (notification :warning "The sky is blue. Gorillas are Pink."))
+    ;; (dispatch-sync [:init-cljs])
+    ;; (cljs-kernel/init!)
     (if read-write
       (do
-        (nrepl-kernel/init! "repl/" app-url)
+        (nrepl-kernel/init! (ws-origin "repl/" app-url))
         ;(dispatch-sync [:initialize-config])
         ;(dispatch-sync [:explore-load])
         ))
-    (dispatch-sync [:initialize-config])
     (dispatch [:explore-load])
     (if (not route)
       (routes/nav! "/new")

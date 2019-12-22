@@ -56,16 +56,11 @@
             context)))
 
 
-(reg-event-db
- :process-config-response
- [install-commands]
- (fn [db [_ response]]
-   (-> (-> (assoc-in db [:config] response)
-           ;; (assoc-in db [:settings :service] (:settings response)
-                     )
-           ;(assoc :message nil)
-           )))
-
+(reg-event-fx
+  :process-config-response
+  (fn [cofx [_ response]]
+    {:db        (assoc-in (:db cofx) [:config] response)
+     :dispatch [:init-cljs]}))   ;; return effects
 
 (reg-event-db
  :toggle.reframe10x

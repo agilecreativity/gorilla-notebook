@@ -1,12 +1,12 @@
 (ns pinkgorilla.kernel.nrepl
   (:require-macros
-   [cljs.core.async.macros :as asyncm :refer (go go-loop)])
+   [cljs.core.async.macros :refer (go go-loop)])
   (:require
    [taoensso.timbre :as timbre :refer-macros (info)]
    [cljs-uuid-utils.core :as uuid]
    [clojure.walk :as w]
-   [cljs.core.async :as async :refer (<! >! put! chan)]
-   ;; [cljs.core.match :refer-macros [match]]    
+   [cljs.core.async :as async :refer (<! >! put! close! chan timeout)]
+   ;; [cljs.core.match :refer-macros [match]]
    ;; [com.stuartsierra.component :as component]
    ;; [system.components.sente :refer [new-channel-socket-client]]
    ;; [taoensso.sente :as sente :refer (cb-success?)]
@@ -185,11 +185,10 @@
       (recur))))
 
 (defn init!
-  [path app-url]
-  (info "clj kernel starting at" path)
+  [ws-url]
+  (info "clj kernel starting at" ws-url)
   (go
-    (let [ws-url (ws-origin path app-url)
-          {:keys [ws-channel error]} (<! (ws-ch ws-url {:format :json}))]
+    (let [{:keys [ws-channel error]} (<! (ws-ch ws-url {:format :json}))]
       (if error
         (add-notification (notification :danger (str "clj-kernel " error)))
         #_(do
@@ -205,7 +204,7 @@
 
 ;; CLJ eval
 
-;; 
+;;
 ;; pinkgorilla.kernel.nrepl.clj_eval("(+ 7 9 )", (function (r) {console.log ("result!!: " +r);}))
 
 (defn ^export clj-eval
