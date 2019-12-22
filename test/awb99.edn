@@ -2,6 +2,8 @@
  ; this file is read by de.otto.tesla
  :settings {:explore-file-directories
             {:gorilla-unittest "./notebooks"
-             :gorilla-examples "../sample-notebooks/notebooks"
-             :backtest         "/home/andreas/Documents/quant/backtest/gorilla"
-             :fundamental      "/home/andreas/Documents/quant/clojureQuant/gorilla"}}}
+             :gorilla-examples "../sample-notebooks/samples"
+             :geschichte "../ui-geschichte/notebooks"
+             :backtest "/home/andreas/Documents/quant/backtest/gorilla"
+             :fquant "../../quant/clojureQuant/gorilla"
+             }}}
