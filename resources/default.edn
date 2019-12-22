@@ -7,6 +7,7 @@
  :settings   {:dev-aids          true
               :explore-file-directories
                                  {:gorilla-unittest "./notebooks"
+                                  :samples "../sample-notebooks/samples"
                                   :geschichte "../ui-geschichte/notebooks"
                                   :fquant "../../quant/clojureQuant/gorilla"}
               :load-scan-exclude #{".git" ".svn"}}

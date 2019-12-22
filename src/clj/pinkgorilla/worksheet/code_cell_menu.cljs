@@ -8,11 +8,11 @@
 
    ;; Kernel (clj/cljs)
    ;; TODO: Not yet ready for master
-   #_[:div.mb-1.bg-yellow-300.shadow
+   [:div.mb-1.bg-yellow-300.shadow
     [:p.text-lg.p-1  {:on-click #(dispatch [:app:kernel-toggle])}
      (:kernel @segment)]]
 
-   [:div.bg-green-700.mt-1.mb-1.h-8
+   [:div.bg-green-500.mt-1.mb-1.h-8
    ;[:p {:class "text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"} "One" ]
 
     [:a {:class [:pg-cell-actions :lg:inline :hover:bg-orange-500]
