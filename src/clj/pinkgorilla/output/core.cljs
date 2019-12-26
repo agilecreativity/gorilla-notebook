@@ -35,6 +35,7 @@
     :jsscript output-jsscript
 
     "html" output-html
+    "text" output-text
     "list-like" (partial output-list-like output-fn)
     ;"vega" output-vega
     "latex" output-latex

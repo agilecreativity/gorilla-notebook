@@ -16,7 +16,7 @@
                                      reagent.core
                                      pinkgorilla.shadow
                                      pinkgorilla.ui.pinkie
-                                     pinkgorilla.ui.text
+                                     pinkgorilla.ui.helper
                                      pinkgorilla.kernel.pinkie
                                      module$node_modules$moment$moment   ; namespace convention of shadow-cljs for npm modules
                                      ajax.core ; http requests

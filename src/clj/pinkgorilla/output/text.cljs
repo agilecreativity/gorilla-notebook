@@ -1,7 +1,8 @@
 (ns pinkgorilla.output.text
   (:require
    [clojure.string :as string]
-   ))
+   [taoensso.timbre :refer-macros (info)]
+   [pinkgorilla.output.html :refer [output-html]]))
 
 
 
@@ -16,8 +17,10 @@
 
 
 (defn output-text
-  [output _]
+  [output seg-id]
   (if-let [content (:content output)]
-  {:type :html
-   :content (text (:text content))
-   :value (pr-str content)}))
+    (let [h (text (:text content))]
+      (info "rendering text: " content "h: " h)
+      (output-html {:content h} seg-id)
+      
+      )))

@@ -1,5 +1,6 @@
 (ns pinkgorilla.output.reagent
   (:require
+   [taoensso.timbre :refer-macros (info)]
    [reagent.core :as reagent :refer [atom]]
    [cljs.reader]
    [widget.hello] ; only included for testing.
@@ -8,9 +9,7 @@
    [widget.text]
    [pinkgorilla.ui.vega :refer [vega vegaa]]
    [pinkgorilla.ui.combo :refer [combo]]
-   [pinkgorilla.ui.slider :refer [slider]]
-   [taoensso.timbre :refer-macros (info)]
-   ))
+   [pinkgorilla.ui.slider :refer [slider]]))
 
 
 (defn clj->json
@@ -23,15 +22,12 @@
    [:h3 "WIDGET NOT FOUND!"]
    [:p "You need to specify the fully-qualified name of the widget"]
    [:p "Example: widget.hello/world"]
-   [:p (str "You have entered: " (clj->json name) )]
-   ]
-  )
+   [:p (str "You have entered: " (clj->json name))]])
 
 
 (defn resolve-function [s]
   (let [;pinkgorilla.output.reagentwidget (cljs.core/resolve (symbol widget-name)) ; this is what we want, but resolve is a macro
-        _ (info "resolving-function " s)
-        ]
+        _ (info "resolving-function " s)]
     (case s
       widget.clock/binary-clock widget.clock/binary-clock
       "widget.combo/list-selector" widget.combo/list-selector
@@ -55,8 +51,7 @@
     ;(info "b is: " b)
 
     ;a
-    b
-    ))
+    b))
 
 (def state-atom
   (reagent/atom
@@ -70,16 +65,15 @@
    Leaves regular hiccup data unchanged."
   [reagent-hiccup-syntax]
   (clojure.walk/prewalk
-    (fn [x]
-      (if (and (coll? x) (symbol? (first x)))
-          (resolve-vector x)
-          x))
-    reagent-hiccup-syntax))
+   (fn [x]
+     (if (and (coll? x) (symbol? (first x)))
+       (resolve-vector x)
+       x))
+   reagent-hiccup-syntax))
 
 (defn resolve-state [x]
   (info "found :widget-state: " x)
-  state-atom
-  )
+  state-atom)
 
 (defn resolve-atoms
   "resolve function-as symbol to function references in the reagent-hickup-map.
@@ -88,7 +82,7 @@
   (clojure.walk/prewalk
    (fn [x]
      (if (= x :widget-state)
-        (resolve-state x)
+       (resolve-state x)
        x))
    reagent-hiccup-syntax))
 
@@ -106,10 +100,9 @@
 
         ;widget (name-to-reagent widget-name)
         ]
-        (reagent/create-class
-         {:display-name "output-reagent"
-          :reagent-render (fn []
-                            [:div.reagent
-                             component
-                             [:p (str "state: " @state-atom)]]
-                             )})))
+    (reagent/create-class
+     {:display-name "output-reagent"
+      :reagent-render (fn []
+                        [:div.reagent
+                         component
+                         [:p (str "state: " @state-atom)]])})))

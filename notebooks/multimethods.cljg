@@ -87,15 +87,18 @@
   (:require 
     [pinkgorilla.ui.pinkie :refer [register-tag custom-renderers]]
    [reagent.core :as r]
-   [pinkgorilla.ui.text :refer [text]]
+   [pinkgorilla.ui.helper :refer [text!]]
    [pinkgorilla.ui.leaflet :refer [mymap]]
    [pinkgorilla.ui.player :refer [player]]
    [pinkgorilla.ui.sparklines :refer [sparkline sparkline-bar sparkline-spot]]
    )) 
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: #error {:message "Could not require pinkgorilla.ui.text", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Assert failed: (compile-state-ref? compile-state-ref)]}
+;;; shadow cljs eval started.. type: data: nil
 ;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
 
 ;; @@ [cljs]
 (defn bongo [] [:div [:h1 "bongo"] [:p "trott"]])
@@ -128,28 +131,41 @@
 ;; <=
 
 ;; @@ [cljs]
-(cljs.pprint/print-table (map #({:key (first %) :renderer (last %)}) (seq @custom-renderers)))
-
+(text! (with-out-str (cljs.pprint/print-table (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))))
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Invalid arity: 0]}
-;; <-
-
-;; @@ [cljs]
-(map #({:key (first %) :renderer (last %)}) (seq @custom-renderers))
-;; @@
-;; ->
-;;; shadow cljs eval started..
-;; <-
-
-;; @@ [cljs]
-^:br (with-out-str (cljs.pprint/print-table (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers))))
-;; @@
-;; ->
-;;; shadow cljs eval started.. type: data: "\n|     :k |                         :r |\n|--------+----------------------------|\n| :bongo | #object[demo_render$bongo] |\n"
+;;; shadow cljs eval started.. type: data: #object[pinkgorilla.ui.helper.t_pinkgorilla$ui$helper5978]
 ;; <-
 ;; =>
-;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"\\n|     :k |                         :r |\\n|--------+----------------------------|\\n| :bongo | #object[demo_render$bongo] |\\n\""],"~:value","\"\\n|     :k |                         :r |\\n|--------+----------------------------|\\n| :bongo | #object[demo_render$bongo] |\\n\""]
+;;; ["^ ","~:type","~:text","~:content",["^ ","^1","\n|     :k |                         :r |\n|--------+----------------------------|\n| :bongo | #object[demo_render$bongo] |\n"]]
+;; <=
+
+;; @@ [cljs]
+(text! "hi\nhi")
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: #object[pinkgorilla.ui.helper.t_pinkgorilla$ui$helper5978]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:text","~:content",["^ ","^1","hi\nhi"]]
+;; <=
+
+;; @@ [clj]
+ (ns demo.rendertest
+  (:require
+            [pinkgorilla.ui.helper :refer [text!]]
+            [pinkgorilla.ui.table  :refer [table-view]]
+            [pinkgorilla.ui.hiccup  :refer [html!]]))
+;; @@
+;; =>
+;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
+;; <=
+
+;; @@ [clj]
+(text! "h2\nkllj\njj")
+;; @@
+;; =>
+;;; ["^ ","~:type","text","~:content",["^ ","~:text","h2\nkllj\njj"]]
 ;; <=
 
 ;; @@ [clj]
