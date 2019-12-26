@@ -64,7 +64,7 @@
                  [clojail "1.0.6"]                          ; sandboxing
 
                  ;pinkgorilla sub projects
-                 [org.pinkgorilla/gorilla-renderable "2.1.4"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
+                 [org.pinkgorilla/gorilla-renderable "2.1.14"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
                  [org.pinkgorilla/encoding "0.0.19"]        ; notebook encoding
                  [org.pinkgorilla/explore "0.1.3"] ; notebook exploration
                  [irresponsible/tentacles "0.6.6"]          ; github api (needed by encoding and explore)
@@ -214,7 +214,7 @@
                                                       org.clojure/google-closure-library
                                                       org.clojure/google-closure-library-third-party]]
                                         ;; CLJS KERNEL
-                                        [org.pinkgorilla/kernel-cljs-shadow "0.0.17"]
+                                        [org.pinkgorilla/kernel-cljs-shadow "0.0.18"]
                                         [thheller/shadow-cljsjs "0.0.21"]
                                         ;; [cljs-tooling "0.2.0"]
                                         ;; https://github.com/bhauman/lein-figwheel/issues/612

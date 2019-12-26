@@ -6,7 +6,10 @@
    [cljs.core.async :refer [timeout chan close! put! <!]]
 
    [pinkgorilla.kernel.clojure :refer [the-eval]]
-   [pinkgorilla.kernel.cljs-helper :refer [send-result-eval send-console]]))
+   [pinkgorilla.kernel.cljs-helper :refer [send-result-eval send-console]]
+
+   [reagent.core :as r]
+   [pinkgorilla.ui.pinkie :refer [register-tag]]))
 
 (defn init! [config]
   ;(go (<! (cklipse/create-state-eval))
@@ -23,3 +26,8 @@
     (send-console segment-id "shadow cljs eval started..")
     (go (send-result-eval segment-id (<! (the-eval snippet {}))))
     nil))
+
+
+;(defn bongo [] [:div [:h1 "bongo"] [:p "trott"]])
+
+;(register-tag :bongo bongo) ; (r/reactify-component bongo))

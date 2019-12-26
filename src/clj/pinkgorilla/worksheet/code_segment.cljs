@@ -8,7 +8,7 @@
    [pinkgorilla.worksheet.helper :refer [init-cm! focus-active-segment error-text console-text exception]]))
 
 
-(defn output-view [seg-id segment]
+(defn output-view-unsafe [seg-id segment]
   (try
     (if-let [value-output (not-empty (:value-response @segment))]
       (let [output-value (output-fn value-output)
@@ -19,6 +19,11 @@
 
         ))
     (catch js/Error e [:p (str "exception rendering cell output: " (. e -message))])))
+
+(defn output-view [seg-id segment]
+  [rc/catch
+   [output-view-unsafe seg-id segment]])
+
 
 (defn code-segment-unsafe
   [seg-data editor-options]

@@ -2,7 +2,7 @@
   (:require-macros
    [cljs.core.async.macros :refer [go go-loop]])
   (:require
-   [taoensso.timbre :refer-macros (info)]   
+   [taoensso.timbre :refer-macros (info)]
    [re-frame.core :refer [dispatch]]
    [pinkgorilla.kernel.cljs-tools :refer [r!]]
    [pinkgorilla.ui.gorilla-renderable :refer [render]]
@@ -57,11 +57,10 @@
   [result]
   (let [m (meta result)]
     {:value-response
-    (if (contains? m :r)
-      {:type :reagent-cljs 
-       :reagent result}
-      (render result)
-      )}))
+     (cond
+       (contains? m :r) {:type :reagent-cljs :reagent result :map-kewords false}
+       (contains? m :R) {:type :reagent-cljs :reagent result :map-kewords true}
+       :else (render result))}))
 
 
 
@@ -71,6 +70,7 @@
 (defn send-result-eval [segment-id result]
   (let [[type data] result]
     (info "cljs eval result:" result)
+    (info "cljs eval result meta:" (meta data))
     (send-console segment-id (str " type: " (type data) "data: " (pr-str data)))
     (case type
       :ok  (send-value segment-id (render-renderable-meta data))

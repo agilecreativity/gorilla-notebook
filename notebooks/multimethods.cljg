@@ -82,6 +82,76 @@
 (ancestors java.util.HashMap.)
 ;; @@
 
+;; @@ [cljs]
+(ns demo-render
+  (:require 
+    [pinkgorilla.ui.pinkie :refer [register-tag custom-renderers]]
+   [reagent.core :as r]
+   [pinkgorilla.ui.text :refer [text]]
+   [pinkgorilla.ui.leaflet :refer [mymap]]
+   [pinkgorilla.ui.player :refer [player]]
+   [pinkgorilla.ui.sparklines :refer [sparkline sparkline-bar sparkline-spot]]
+   )) 
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: #error {:message "Could not require pinkgorilla.ui.text", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Assert failed: (compile-state-ref? compile-state-ref)]}
+;; <-
+
+;; @@ [cljs]
+(defn bongo [] [:div [:h1 "bongo"] [:p "trott"]])
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: #'demo-render/bongo
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'demo-render/bongo"],"~:value","#'demo-render/bongo"]
+;; <=
+
+;; @@ [cljs]
+(register-tag :bongo bongo); (r/reactify-component bongo))
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: {:bongo #object[demo_render$bongo]}
+;; <-
+;; =>
+;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":bongo"],"~:value",":bongo"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-unknown"],"#object[demo_render$bongo]"],"^;","#object[demo_render$bongo]"]]],"^;","[:bongo #object[demo_render$bongo]]"]]],"^;","{:bongo #object[demo_render$bongo]}"]
+;; <=
+
+;; @@ [cljs]
+^:R [:bongo]
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: [:bongo]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs","~:map-kewords",true]
+;; <=
+
+;; @@ [cljs]
+(cljs.pprint/print-table (map #({:key (first %) :renderer (last %)}) (seq @custom-renderers)))
+
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: Invalid arity: 0]}
+;; <-
+
+;; @@ [cljs]
+(map #({:key (first %) :renderer (last %)}) (seq @custom-renderers))
+;; @@
+;; ->
+;;; shadow cljs eval started..
+;; <-
+
+;; @@ [cljs]
+^:br (with-out-str (cljs.pprint/print-table (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers))))
+;; @@
+;; ->
+;;; shadow cljs eval started.. type: data: "\n|     :k |                         :r |\n|--------+----------------------------|\n| :bongo | #object[demo_render$bongo] |\n"
+;; <-
+;; =>
+;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-string"],"\"\\n|     :k |                         :r |\\n|--------+----------------------------|\\n| :bongo | #object[demo_render$bongo] |\\n\""],"~:value","\"\\n|     :k |                         :r |\\n|--------+----------------------------|\\n| :bongo | #object[demo_render$bongo] |\\n\""]
+;; <=
+
 ;; @@ [clj]
 
 ;; @@

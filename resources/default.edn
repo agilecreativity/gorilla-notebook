@@ -15,6 +15,9 @@
                                      ;quil.util
                                      reagent.core
                                      pinkgorilla.shadow
+                                     pinkgorilla.ui.pinkie
+                                     pinkgorilla.ui.text
+                                     pinkgorilla.kernel.pinkie
                                      module$node_modules$moment$moment   ; namespace convention of shadow-cljs for npm modules
                                      ajax.core ; http requests
                                      pinkgorilla.ui.leaflet

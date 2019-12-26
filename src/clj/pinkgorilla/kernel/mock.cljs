@@ -15,4 +15,5 @@
 
 (defn eval!
   [segment-id content]
-  (send-result segment-id "Everything is wunderbar!"))
+  (send-result segment-id "Everything is wunderbar!")
+  (dispatch [:evaluator:done-response segment-id]))
