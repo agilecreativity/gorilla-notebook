@@ -65,6 +65,8 @@
 
                  ;pinkgorilla sub projects
                  [org.pinkgorilla/gorilla-renderable "2.1.15"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
+                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.2"
+                  :exclusions [*/*]]
                  [org.pinkgorilla/encoding "0.0.19"]        ; notebook encoding
                  [org.pinkgorilla/explore "0.1.3"] ; notebook exploration
                  [irresponsible/tentacles "0.6.6"]          ; github api (needed by encoding and explore)
