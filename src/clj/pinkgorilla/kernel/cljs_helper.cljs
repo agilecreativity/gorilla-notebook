@@ -17,12 +17,16 @@
     segment-id
     {:console-response result}]))
 
-(defn send-value [segment-id result]
-  (dispatch
-   [:evaluator:value-response
-    segment-id
-    result
-    'cljs.user]))
+(defn send-value
+  "display the eval result in the notebook"
+  ([segment-id result]
+   (send-value segment-id result 'cljs.user))
+  ([segment-id result namespace]
+   (dispatch
+    [:evaluator:value-response
+     segment-id
+     result
+     namespace])))
 
 (defn send-error [segment-id error-text]
   (dispatch

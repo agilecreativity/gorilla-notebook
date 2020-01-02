@@ -14,7 +14,23 @@
    [reagent.core :as reagent]
    [re-frame.core :refer [dispatch]]
    [pinkgorilla.util :refer [ws-origin]]
-   [pinkgorilla.notifications :refer [add-notification notification]]))
+   [pinkgorilla.notifications :refer [add-notification notification]]
+   [pinkgorilla.kernel.cljs-helper :refer [send-value]]))
+
+
+(defn render-renderable-meta
+  "rendering via the Renderable protocol (needs renderable project)
+   (users can define their own render implementations)
+   identical to cljs version, except for non meta rendering it will not
+   call render, as this already has been rendered in the clj kernel"
+  [result]
+  (let [m (meta result)]
+    {:value-response
+     (cond
+       (contains? m :r) {:type :reagent-cljs :reagent result :map-kewords false}
+       (contains? m :R) {:type :reagent-cljs :reagent result :map-kewords true}
+       :else result)}))
+
 
 ;; TODO : Fixme handle breaking websocket connections
 (defonce ws-repl
@@ -103,13 +119,13 @@
 
         ;; value response
         ns
-        (dispatch [:evaluator:value-response
-                   segment-id
-                   {:value-response (-> (.parse js/JSON (.parse js/JSON value))
-                                        js->clj
-                                        w/keywordize-keys)}
-                   ns]) ;; :ns ns
-
+        (let [data (-> (.parse js/JSON (.parse js/JSON value))
+                       js->clj
+                       w/keywordize-keys) ]
+         ; (send-value segment-id {:value-response data}  ns)) ; (render-renderable-meta data)
+        (send-value segment-id (render-renderable-meta data)  ns)) ; 
+        ;(dispatch [:evaluator:value-response segment-id {:value-response data } ns])) ;; :ns ns
+        
         ;; console string
         out
         (dispatch [:evaluator:console-response segment-id {:console-response out}])

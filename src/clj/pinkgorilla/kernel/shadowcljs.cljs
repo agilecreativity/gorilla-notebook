@@ -23,7 +23,7 @@
 (defn eval!
   [segment-id snippet]
   (do
-    (send-console segment-id "shadow cljs eval started..")
+    ;(send-console segment-id "shadow cljs eval started..")
     (go (send-result-eval segment-id (<! (the-eval snippet {}))))
     nil))
 
