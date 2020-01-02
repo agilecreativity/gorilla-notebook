@@ -1,5 +1,6 @@
 (ns pinkgorilla.worksheet.code-cell-menu
   (:require
+   [pinkgorilla.prefs :as prefs]
    [re-frame.core :refer [dispatch]]))
 
 
@@ -8,9 +9,12 @@
 
    ;; Kernel (clj/cljs)
    ;; TODO: Not yet ready for master
-   [:div.mb-1.bg-yellow-300.shadow
-    [:p.text-lg.p-1  {:on-click #(dispatch [:app:kernel-toggle])}
-     (:kernel @segment)]]
+   (prefs/if-cljs-kernel
+     [:div.mb-1.bg-yellow-300.shadow
+      [:a.text-lg.p-1 {:on-click #(dispatch [:app:kernel-toggle])}
+       (:kernel @segment)]
+      ]
+     nil)
 
    [:div.bg-green-500.mt-1.mb-1.h-8
    ;[:p {:class "text-lg no-underline text-grey-darkest hover:text-blue-dark ml-2"} "One" ]

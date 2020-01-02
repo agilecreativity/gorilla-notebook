@@ -5,7 +5,8 @@
  :health-url "/health"
  ;; TODO: The following ends up (get-in @db [:config]). CANNOT be nested in settings bc the latter is backed by local-storage
  :settings   {; TODO ClojureScript kernel settings may interfere with the build chosen
-              :cljs {:path         "http://localhost:2705/out/gorilla" ; base url of dependency server / bundle that gets loaded
+              :cljs {;; :path         "http://localhost:2705/out/gorilla" ; base url of dependency server / bundle that gets loaded
+                     :path         "/cljs-runtime/gorilla" ; base url of dependency server / bundle that gets loaded
                      ; namespaces that will get loaded into the cljs kernel via our dependency server
                      :load-on-init #{fortune.core
                                      awb99.shapes.core

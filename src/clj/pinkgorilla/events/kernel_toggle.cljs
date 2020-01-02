@@ -11,10 +11,8 @@
 
 (defn kernel-toggle [current-kernel]
   (case current-kernel
-          :clj :mock
-          :mock :cljs
-          :cljs :clj
-          nil))
+          :clj :cljs
+          :clj))
 
 
 (reg-event-db
