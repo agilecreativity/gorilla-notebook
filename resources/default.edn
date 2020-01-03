@@ -21,9 +21,13 @@
                                      pinkgorilla.kernel.pinkie
                                      module$node_modules$moment$moment   ; namespace convention of shadow-cljs for npm modules
                                      ajax.core ; http requests
-                                     pinkgorilla.ui.leaflet
+                                     
                                      pinkgorilla.ui.player ; video player
                                      pinkgorilla.ui.sparklines ; sparkline charts
+                                     pinkgorilla.ui.aggrid ; aggrid grid
+                                     pinkgorilla.ui.leaflet
+                                     
+                                     thi.ng.strf.core
                                      }}
               :dev-aids          true
               :explore-file-directories
