@@ -1,4 +1,4 @@
-(defproject org.pinkgorilla/gorilla-notebook "0.4.0"
+(defproject org.pinkgorilla/gorilla-notebook "0.4.1-SNAPSHOT"
   :description "A rich REPL for Clojure in the notebook style."
   :url "https://github.com/pink-gorilla/gorilla-notebook"
   :scm {:name "git" :url "https://github.com/pink-gorilla/gorilla-notebook"}
@@ -64,8 +64,8 @@
                  [clojail "1.0.6"]                          ; sandboxing
 
                  ;pinkgorilla sub projects
-                 [org.pinkgorilla/gorilla-renderable "2.1.19"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
-                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.2"
+                 [org.pinkgorilla/gorilla-renderable "2.1.20"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
+                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.3"
                   :exclusions [*/*]]
                  [org.pinkgorilla/encoding "0.0.19"]        ; notebook encoding
                  [org.pinkgorilla/explore "0.1.3"] ; notebook exploration
