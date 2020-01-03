@@ -62,8 +62,8 @@
   (let [m (meta result)]
     {:value-response
      (cond
-       (contains? m :r) {:type :reagent-cljs :reagent result :map-kewords false}
-       (contains? m :R) {:type :reagent-cljs :reagent result :map-kewords true}
+       (contains? m :r) {:type :reagent-cljs :reagent result :map-keywords false}
+       (contains? m :R) {:type :reagent-cljs :reagent result :map-keywords true}
        :else (render result))}))
 
 

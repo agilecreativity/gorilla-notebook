@@ -5,7 +5,8 @@
    [re-frame.core :as rf]
    [pinkgorilla.events.views :as views-events]
    [pinkgorilla.events :as events]
-   [pinkgorilla.subs :as s]))
+   [pinkgorilla.subs :as s]
+   [pinkgorilla.kernel.cljs-tools :refer [print-loaded-shadow-namespaces]]))
 
 ;; stolen from:
 ;; https://github.com/baskeboler/cljs-karaoke-client/blob/master/src/main/cljs_karaoke/views/navbar.cljs
@@ -126,7 +127,12 @@
                      (rf/dispatch [:open-oauth-window :github])
                       ;(rf/dispatch [::events/set-navbar-menu-active? false])
                      )}
-    "github login"]])
+    "github login"]
+
+   [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
+        :on-click #(do
+                     (print-loaded-shadow-namespaces))}
+    "p-lns"]])
 
 (defn navbar-component []
   (let [is-active? (rf/subscribe [:navbar-menu-is-active?])
@@ -180,8 +186,7 @@
          [:span {:class "block mt-4 lg:inline-block lg:mt-0 text-green-700 mr-4"}
           [:i.fas.fa-play]]
          [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white text-red-600 mr-4"
-              :on-click #(rf/dispatch [:kernel-clj-connect])
-              }
+              :on-click #(rf/dispatch [:kernel-clj-connect])}
           [:i.fas.fa-skull-crossbones]])
 
        ; show notebook-menu only when we are in notebook view and we have a valid notebook

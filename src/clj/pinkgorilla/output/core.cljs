@@ -9,7 +9,7 @@
    [pinkgorilla.output.widget :refer [output-widget]]
    [pinkgorilla.output.jsscript :refer [output-jsscript]]
    [pinkgorilla.output.reagent :refer [output-reagent]]
-   [pinkgorilla.output.reagent-cljs :refer [output-reagent-cljs]]))
+   [pinkgorilla.output.reagent-cljs :refer [output-reagent-cljs output-reagent-cljs-from-clj]]))
 
 ;; 2019 10 16 awb:
 ;; output-list-like needs output-fn as recursive-renderer.
@@ -34,6 +34,7 @@
     :reagent-cljs output-reagent-cljs
     :jsscript output-jsscript
 
+    ; TODO: clj repl does not send keywords correctly
     "html" output-html
     "text" output-text
     "list-like" (partial output-list-like output-fn)
@@ -41,5 +42,6 @@
     "latex" output-latex
     "widget" output-widget
     "reagent" output-reagent
+    "reagent-cljs" output-reagent-cljs-from-clj
     "jsscript" output-jsscript
     output-unknown))

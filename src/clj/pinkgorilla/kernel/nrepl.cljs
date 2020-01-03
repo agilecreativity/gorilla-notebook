@@ -5,6 +5,7 @@
    [taoensso.timbre :as timbre :refer-macros (info)]
    [cljs-uuid-utils.core :as uuid]
    [clojure.walk :as w]
+   [clojure.string :as str]
    [cljs.core.async :as async :refer (<! >! put! close! chan timeout)]
    ;; [cljs.core.match :refer-macros [match]]
    ;; [com.stuartsierra.component :as component]
@@ -18,17 +19,22 @@
    [pinkgorilla.kernel.cljs-helper :refer [send-value]]))
 
 
+
+
+
 (defn render-renderable-meta
   "rendering via the Renderable protocol (needs renderable project)
    (users can define their own render implementations)
    identical to cljs version, except for non meta rendering it will not
    call render, as this already has been rendered in the clj kernel"
   [result]
-  (let [m (meta result)]
+  (let [m (meta result)
+        ;_ (info "clj meta: " m)
+        ]
     {:value-response
      (cond
-       (contains? m :r) {:type :reagent-cljs :reagent result :map-kewords false}
-       (contains? m :R) {:type :reagent-cljs :reagent result :map-kewords true}
+       (contains? m :r) {:type :reagent-cljs :reagent result :map-keywords false}
+       (contains? m :R) {:type :reagent-cljs :reagent result :map-keywords true}
        :else result)}))
 
 
@@ -95,6 +101,14 @@
                          (callback {:symbol (get msg "name")
                                     :ns (get msg "ns")}))))
 
+(defn- parse-value [value]
+  (let [data (-> (.parse js/JSON (.parse js/JSON value))
+                 js->clj
+                 w/keywordize-keys)
+        _ (info "value " value " => " data)]
+    data
+    ))
+
 
 (defn- process-msg
   "processes an incoming message from websocket that comes from nrepl (and has cider enhancements)
@@ -119,13 +133,11 @@
 
         ;; value response
         ns
-        (let [data (-> (.parse js/JSON (.parse js/JSON value))
-                       js->clj
-                       w/keywordize-keys) ]
-         ; (send-value segment-id {:value-response data}  ns)) ; (render-renderable-meta data)
-        (send-value segment-id (render-renderable-meta data)  ns)) ; 
+        (let [data (parse-value value)]
+          (send-value segment-id {:value-response data}  ns)) 
+         ; (send-value segment-id (render-renderable-meta data)  ns)) ; 
         ;(dispatch [:evaluator:value-response segment-id {:value-response data } ns])) ;; :ns ns
-        
+
         ;; console string
         out
         (dispatch [:evaluator:console-response segment-id {:console-response out}])
@@ -234,9 +246,7 @@
                                ;_ (println "ns: " ns) ; this does not work
                                _ (.log js/console (str "ns: " ns)) ; this works
                                value (get message "value")
-                               data  (-> (.parse js/JSON (.parse js/JSON value))
-                                         js->clj
-                                         w/keywordize-keys)]
+                               data  (parse-value value)]
                            (when ns (let [v2 (cljs.reader/read-string (:value data))]
                                       (do
                                         (.log js/console "clj-eval response: " data " type: " (type value))

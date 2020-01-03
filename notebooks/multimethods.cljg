@@ -92,9 +92,10 @@
    [pinkgorilla.ui.player :refer [player]]
    [pinkgorilla.ui.sparklines :refer [sparkline sparkline-bar sparkline-spot]]
    )) 
+
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: nil
+;;;  type: data: nil
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
@@ -104,17 +105,17 @@
 (defn bongo [] [:div [:h1 "bongo"] [:p "trott"]])
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: #'demo-render/bongo
+;;;  type: data: #'demo-render/bongo
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:html","~:content",["~:span",["^ ","~:class","clj-unknown"],"#'demo-render/bongo"],"~:value","#'demo-render/bongo"]
 ;; <=
 
 ;; @@ [cljs]
-(register-tag :bongo bongo); (r/reactify-component bongo))
+(register-tag :bongo bongo)
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: {:video #object[pinkgorilla$ui$player$player], :bongo #object[demo_render$bongo]}
+;;;  type: data: {:video #object[pinkgorilla$ui$player$player], :bongo #object[demo_render$bongo]}
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:list-like","~:open",["~:span",["^ ","~:class","clj-map"],"{"],"~:close",["^3",["^ ","^4","clj-map"],"}"],"~:separator",["^3",", "],"~:items",["~#list",[["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","~:html","~:content",["^3",["^ ","^4","clj-keyword"],":video"],"~:value",":video"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-unknown"],"#object[pinkgorilla$ui$player$player]"],"^;","#object[pinkgorilla$ui$player$player]"]]],"^;","[:video #object[pinkgorilla$ui$player$player]]"],["^ ","^0","^1","^2",null,"^5",null,"^6",["^3"," "],"^7",["^8",[["^ ","^0","^9","^:",["^3",["^ ","^4","clj-keyword"],":bongo"],"^;",":bongo"],["^ ","^0","^9","^:",["^3",["^ ","^4","clj-unknown"],"#object[demo_render$bongo]"],"^;","#object[demo_render$bongo]"]]],"^;","[:bongo #object[demo_render$bongo]]"]]],"^;","{:video #object[pinkgorilla$ui$player$player], :bongo #object[demo_render$bongo]}"]
@@ -124,7 +125,7 @@
 ^:R [:bongo]
 ;; @@
 ;; ->
-;;; shadow cljs eval started.. type: data: [:bongo]
+;;;  type: data: [:bongo]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:reagent-cljs","~:map-kewords",true]
@@ -134,7 +135,7 @@
 (text! (with-out-str (cljs.pprint/print-table (map #(assoc {} :k (first %) :r (pr-str (last %))) (seq @custom-renderers)))))
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.ui.helper.t_pinkgorilla$ui$helper5978]
+;;;  type: data: #object[pinkgorilla.ui.helper.t_pinkgorilla$ui$helper5957]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:text","~:content",["^ ","^1","\n|     :k |                                    :r |\n|--------+---------------------------------------|\n| :video | #object[pinkgorilla$ui$player$player] |\n| :bongo |            #object[demo_render$bongo] |\n"]]
@@ -144,14 +145,15 @@
 (text! "hi\nhi")
 ;; @@
 ;; ->
-;;;  type: data: #object[pinkgorilla.ui.helper.t_pinkgorilla$ui$helper5978]
+;;;  type: data: #object[pinkgorilla.ui.helper.t_pinkgorilla$ui$helper5957]
 ;; <-
 ;; =>
 ;;; ["^ ","~:type","~:text","~:content",["^ ","^1","hi\nhi"]]
 ;; <=
 
 ;; @@ [clj]
- (ns demo.rendertest
+;; CLOJURE now
+(ns demo.rendertest
   (:require
             [pinkgorilla.ui.helper :refer [text!]]
             [pinkgorilla.ui.table  :refer [table-view]]
@@ -171,6 +173,26 @@
 ;; @@ [clj]
 ^:R [:video "https://www.youtube.com/watch?v=-6BsiVyC1kM"]
 ;; @@
+;; =>
+;;; ["^ ","~:type","reagent-cljs","~:map-kewords",true]
+;; <=
+
+;; @@ [cljs]
+^:R [:video "https://www.youtube.com/watch?v=-6BsiVyC1kM"]
+;; @@
+;; ->
+;;;  type: data: [:video "https://www.youtube.com/watch?v=-6BsiVyC1kM"]
+;; <-
+;; =>
+;;; ["^ ","~:type","~:reagent-cljs","~:map-kewords",true]
+;; <=
+
+;; @@ [clj]
+^:R [:bongo]
+;; @@
+;; =>
+;;; ["^ ","~:type","reagent-cljs","~:map-kewords",true]
+;; <=
 
 ;; @@ [clj]
 
