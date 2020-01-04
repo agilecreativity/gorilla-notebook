@@ -58,17 +58,17 @@
                  [info.sunng/ring-jetty9-adapter "0.12.5"]
 
                  ; CLJ Kernel
-                 [org.pinkgorilla/gorilla-middleware "0.2.6"]
+                 [org.pinkgorilla/gorilla-middleware "0.2.11"]
                  [com.cemerick/pomegranate "1.1.0"]         ; add-dependency in clj kernel TODO : Replace pomegranate with tools alpha
                  [org.clojure/tools.cli "0.4.2"]
                  [clojail "1.0.6"]                          ; sandboxing
 
                  ;pinkgorilla sub projects
-                 [org.pinkgorilla/gorilla-renderable "2.1.20"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
-                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.3"
+                 [org.pinkgorilla/gorilla-renderable "2.1.22"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
+                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.4"
                   :exclusions [*/*]]
-                 [org.pinkgorilla/encoding "0.0.19"]        ; notebook encoding
-                 [org.pinkgorilla/explore "0.1.3"] ; notebook exploration
+                 [org.pinkgorilla/notebook-encoding "0.0.21"]        ; notebook encoding
+                 [org.pinkgorilla/gorilla-explore "0.1.7"] ; notebook exploration
                  [irresponsible/tentacles "0.6.6"]          ; github api (needed by encoding and explore)
                  [clj-time "0.15.2"]] ; needed for notebook exploration ui
 
@@ -216,7 +216,7 @@
                                                       org.clojure/google-closure-library
                                                       org.clojure/google-closure-library-third-party]]
                                         ;; CLJS KERNEL
-                                        [org.pinkgorilla/kernel-cljs-shadow "0.0.18"]
+                                        [org.pinkgorilla/kernel-cljs-shadow "0.0.20"]
                                         [thheller/shadow-cljsjs "0.0.21"]
                                         ;; [cljs-tooling "0.2.0"]
                                         ;; https://github.com/bhauman/lein-figwheel/issues/612
