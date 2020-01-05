@@ -1,5 +1,5 @@
 (ns pinkgorilla.explore.meta
-  (:require 
+  (:require
    [re-frame.core :refer [dispatch subscribe]]
    [pinkgorilla.explore.form-helpers :as fh]
    [pinkgorilla.explore.utils :as u]
@@ -21,7 +21,7 @@
         data              (subscribe (into [:form-data] form-path))
         form              (subscribe (into [:key :forms] form-path))]
     (fn []
-      (let [show-preview false ] ;@show-preview]
+      (let [show-preview false] ;@show-preview]
         [:div.listing-form.clearfix
          ;{:class (if show-preview "show-preview")}
          [:div.form
@@ -31,9 +31,9 @@
           ;    (if show-preview "hide preview" "show preview")]]
           [:form (fh/on-submit form-path)
            [:div
-            
+
             [:div.section.clearfix
-             
+
              ;[input :text :project/name
              ; :required true
              ; :placeholder "luminus"]
@@ -58,7 +58,6 @@
             ;[:div.field
             ; [:input {:type "submit" :value (submit-text data)}]
             ; [fh/progress-indicator form]]
-            
             ]]
           ;[ui/ctg {:transitionName "slide" :class "slide-container"}
            ;(when show-preview [preview/preview data])

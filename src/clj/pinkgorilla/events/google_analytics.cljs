@@ -19,6 +19,6 @@
  :ga/event
  (fn [[category]]
    (when *enabled*
-     (js/gtag "event" (name category) ); label value (clj->js fields-object)
-            )))
+     (js/gtag "event" (name category)); label value (clj->js fields-object)
+     )))
 

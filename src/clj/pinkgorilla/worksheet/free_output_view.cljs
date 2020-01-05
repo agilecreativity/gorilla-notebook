@@ -3,7 +3,6 @@
    [cljs-uuid-utils.core :as uuid]
    [reagent.core :as reagent]))
 
-
 (defn free-output-view
   [seg-id content]
   (let [prev-uuid (uuid/uuid-string (uuid/make-random-uuid))

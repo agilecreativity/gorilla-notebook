@@ -16,7 +16,6 @@
             modal-panel popover-content-wrapper popover-anchor-wrapper]]
    [pinkgorilla.routes :as routes]))
 
-
 (defn do-save [form]
   (dispatch-sync [:save-as-storage form]) ; sets the :storage in app db
   (dispatch-sync [:save-dialog-cancel]) ; closes the dialog
@@ -28,8 +27,6 @@
     27 (dispatch [:save-dialog-cancel]) ; ESC
     13 (do-save form)   ; Enter
     nil))
-
-
 
 (defn save-dialog
   []
@@ -96,7 +93,6 @@
            :on-change        #(change! :description %)
            :disabled?        (not (= :gist (:source @form)))]
 
-
           [:h3 "Filename"]
           [:input {:type          "text"
                    :value         (:filename @form)
@@ -105,9 +101,6 @@
                    ; :on-mouse-down #(dispatch [:save-dialog-cancel])
                    :on-key-down   #(check-key @form (.-which %))
                    :on-change     #(change! :filename (-> % .-target .-value))}]
-
-
-
 
           [:div>div
            {:class    "modal-button"

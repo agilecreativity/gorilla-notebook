@@ -2,10 +2,8 @@
   (:require
    [reagent.core :as reagent :refer [atom]]
    [taoensso.timbre :refer-macros (info)]
-    [clojure.edn :as edn]
+   [clojure.edn :as edn]
    [pinkgorilla.ui.pinkie :refer [resolve-functions]]))
-
-
 
 (defn output-reagent-cljs
   [output _]
@@ -14,7 +12,6 @@
         _ (info "map-keywords: " map-keywords " reagent component: " component)
         component (if map-keywords (resolve-functions component) component)]
     component))
-
 
 (defn output-reagent-cljs-from-clj
   ""

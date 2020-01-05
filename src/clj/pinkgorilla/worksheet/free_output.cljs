@@ -7,8 +7,6 @@
    [pinkgorilla.output.mathjax :refer [queue-mathjax-rendering]]
    [pinkgorilla.worksheet.helper :refer [init-cm! focus-active-segment]]))
 
-
-
 (defn free-output
   [active seg-id content editor-options]
   (let [prev-uuid (uuid/uuid-string (uuid/make-random-uuid))

@@ -10,7 +10,6 @@
  (fn [db _]
    (:main db)))
 
-
 (reg-sub
  :docs
  (fn [db _]
@@ -41,7 +40,6 @@
  (fn [db _]
    (get-in db [:worksheet :meta])))
 
-
 (reg-sub
  :save-dialog
  (fn [db _]
@@ -49,6 +47,8 @@
 
 
 ; The dialog subscription can be used by all dialogs to manage dialog-visibility.
+
+
 (reg-sub
  :dialog
  (fn [db _]
@@ -81,6 +81,7 @@
 
 
 ;; navbar
+
 
 (reg-sub
  ::current-view

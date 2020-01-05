@@ -19,7 +19,6 @@
 (defn get-setting [path]
   (get-in @system (vec (concat [:config :config :settings] path))))
 
-
 (defn gorilla-system [runtime-config]
   (-> (system/base-system (merge {:name "gorilla-service"} runtime-config))
       (assoc

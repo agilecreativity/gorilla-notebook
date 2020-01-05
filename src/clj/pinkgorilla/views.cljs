@@ -3,7 +3,7 @@
    [clojure.string :as str]
       ;; [hickory.core :as hick]
       ;; [clojure.walk :as w]
-   
+
    [reagent.core :as reagent :refer [atom]]
    [re-frame.core :as rf :refer [subscribe dispatch dispatch-sync]]
    [re-com.core :as re-com]
@@ -22,8 +22,8 @@
       ;[cljsjs.d3]    2019-10-20 awb99 removed as it fucks up the new vega
       ;[cljsjs.d3geo]  2019-10-20 awb99 removed as it fucks up the new vega
       ;[cljsjs.vega] 2019-10-20 awb99 removed as it fucks up the new vega
-   
-  
+
+
    [pinkgorilla.subs :as s]
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.output.hack :refer [temp-comp-hack]]
@@ -37,7 +37,7 @@
    [pinkgorilla.storage.core]
    [pinkgorilla.views.navbar :as navbar]
    [pinkgorilla.dialog.notifications :refer [notifications-container-component]]
-   
+
       ;widgets are only included here so they get compiled to the bundle.js
    [widget.hello]
 
@@ -70,6 +70,8 @@
 
 
 ;; Components
+
+
 (defn hamburger []
   [:div.menu-icon {:on-click                #(dispatch [:app:commands])
                    :dangerouslySetInnerHTML {:__html "&#9776;"}}])
@@ -100,15 +102,12 @@
          [:div.DocViewer.doc-viewer-content {}
           [:div {:dangerouslySetInnerHTML {:__html (:content @docs)}}]]])})))
 
-
-
 (defn app-status
   []
   (let [message (subscribe [:message])]
     (fn []
       [:div.status {:style (if (str/blank? @message) {:display "none"} {})}
        [:h3 @message]])))
-
 
 (defn gorilla-app-doc
   []
@@ -136,8 +135,6 @@
                                                                   (get-in @config [:project :gorilla-options :editor] {})]]]
                           (into container (filter some? other-children))))})))
 
-
-
 (defn gorilla-app
   []
   (let [main (subscribe [:main])]
@@ -145,11 +142,11 @@
      (when @(rf/subscribe [::s/navbar-visible?])
        [navbar/navbar-component])
      [notifications-container-component]
-     
+
      [meta-dialog]
      [settings-dialog]
      [save-dialog]
-     
+
      (case @main
        :explore [pinkgorilla.explore.list/view]
        :notebook [gorilla-app-doc]

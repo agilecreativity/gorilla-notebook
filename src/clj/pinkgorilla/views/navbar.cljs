@@ -33,7 +33,6 @@
                (if @is-active? ["is-active"] []))}
       [:div.navbar-start
 
-
        [:a.navbar-item
         {;:href "#/"
          :on-click #(do (rf/dispatch [:goto-main])
@@ -88,14 +87,12 @@
                      )}
     "clear all output"]
 
-
    [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:bg-orange-500 mr-4"
         :on-click #(do
                      (rf/dispatch [:dialog-show :meta])
                       ;(rf/dispatch [::events/set-navbar-menu-active? false])
                      )}
     "meta"]
-
 
    [:a {:class "block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
         :on-click #(do

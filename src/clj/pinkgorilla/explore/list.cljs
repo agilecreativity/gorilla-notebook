@@ -2,7 +2,7 @@
   (:require
    [re-frame.core :refer [dispatch subscribe]]
    [clojure.string :as str ;:refer [subs]   ; subs should exist, but does not.
-     ]
+    ]
 
    [pinkgorilla.storage.storage :refer [gorilla-path external-url]]
    [pinkgorilla.routes :as routes]
@@ -25,6 +25,7 @@
 
 
 ;; sidebar on the right (search keyword / tags / etc)
+
 
 (defn sidebar [search-input tags selected-tags]
   [:div.mt-12
@@ -65,6 +66,7 @@
 
 ;; project details
 
+
 (defn project-name-old [entry]
   (let [name (or (:filename entry) "?")]
     {:name (str/replace name #"^(.+?)/+$" "$1")}))
@@ -97,7 +99,6 @@
           (subs2 p root-len))); for local files remove the root dir (we have :repo so dont need full rot path) 
       p)))
 
-
 (defn project-link [entry]
   (let [storage (:storage entry)]
     (if (nil? storage)
@@ -118,6 +119,7 @@
 ; github stars are not yet included in the view.
 ; [:div;.stars 
 ;  (:stars l)]
+
 
 (defn project [selected-tags l]
   [:div {:class "border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400  rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"}
@@ -157,6 +159,7 @@
 
 
 ;; the entire explorer page
+
 
 (defn view
   []

@@ -2,12 +2,10 @@
   (:require
    [re-frame.core :refer [subscribe]]
 
-
    [pinkgorilla.worksheet.code-segment :refer [code-segment]]
    [pinkgorilla.worksheet.code-segment-view :refer [code-segment-view]]
    [pinkgorilla.worksheet.free-segment :refer [free-segment]]
    [pinkgorilla.worksheet.free-segment-view :refer [free-segment-view]]))
-
 
 (defn worksheet
   [read-write editor-options]

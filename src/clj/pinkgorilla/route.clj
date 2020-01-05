@@ -29,7 +29,6 @@
     [prefix receive-fn]
     [(GET (str prefix "repl") [] (ws-relay/jetty-repl-ring-handler receive-fn))])
 
-
 (defn document-utf8
   [filename req]
   {:status  200
@@ -40,7 +39,6 @@
    :headers {"Content-Type" "text/html; charset=utf-8"}
    :body    (slurp (io/resource
                     (str "gorilla-repl-client/" filename)))})
-
 
 (defn create-resource-handlers
   [prefix]
@@ -67,6 +65,8 @@
 
 
 ;; Only wrap session once - Figwheel does that already, so this handler should not be used with Figwheel
+
+
 (def default-handler (wrap-session
                       (apply compojure/routes (concat default-api-handlers
                                                        ;; default-repl-handlers

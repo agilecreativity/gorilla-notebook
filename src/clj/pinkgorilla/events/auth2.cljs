@@ -2,7 +2,6 @@
   (:require
    [re-frame.core :refer [reg-event-fx reg-cofx reg-sub inject-cofx dispatch]]))
 
-
 (defn clear-error [state]
   (assoc-in state [:user-auth :error] nil))
 
@@ -12,7 +11,6 @@
   multiple times."
   [e]
   (dispatch [::remote-oauth (.. e -data -code) (.. e -data -state)]))
-
 
 (reg-event-fx
  :open-oauth-window

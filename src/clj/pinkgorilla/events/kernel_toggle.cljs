@@ -5,15 +5,12 @@
    [taoensso.timbre :refer-macros (info)]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    ;[pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
-   [pinkgorilla.notifications :refer [add-notification notification]]
-   ))
-
+   [pinkgorilla.notifications :refer [add-notification notification]]))
 
 (defn kernel-toggle [current-kernel]
   (case current-kernel
-          :clj :cljs
-          :clj))
-
+    :clj :cljs
+    :clj))
 
 (reg-event-db
  :app:kernel-toggle
@@ -30,8 +27,7 @@
        db
        (do
          (add-notification (notification :info (str "cell kernel is now" new-kernel)))
-         (assoc-in db [:worksheet :segments active-id :kernel] new-kernel )))
-         )))
+         (assoc-in db [:worksheet :segments active-id :kernel] new-kernel))))))
 
 
 

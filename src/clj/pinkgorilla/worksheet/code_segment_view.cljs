@@ -6,8 +6,6 @@
    [pinkgorilla.output.core :refer [output-fn]]
    [pinkgorilla.worksheet.helper :refer [error-text console-text exception colorize-cm!]]))
 
-
-
 (defn code-segment-view
   [seg-data]
   ;; TODO: active <=> selected, executing <=> running

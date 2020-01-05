@@ -3,9 +3,7 @@
    [cljs-uuid-utils.core :as uuid]
    [reagent.core :as reagent]
    [pinkgorilla.output.mathjax :refer [queue-mathjax-rendering]]
-   [pinkgorilla.output.hack :refer [value-wrap]]
-   ))
-
+   [pinkgorilla.output.hack :refer [value-wrap]]))
 
 (defn output-latex
   [output seg-id]

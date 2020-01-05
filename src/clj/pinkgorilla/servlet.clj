@@ -37,7 +37,6 @@
    (set-handler
     (route/war-handler (-> (.getServletContext this) .getContextPath)))))
 
-
 (defn -service
   [this ^HttpServletRequest request ^HttpServletResponse response]
   (@ring-service this request response))

@@ -6,7 +6,6 @@
    [pinkgorilla.worksheet.free-output :refer [free-output]]
    [pinkgorilla.worksheet.helper :refer [focus-active-segment]]))
 
-
 (defn free-segment
   [seg-data editor-options]
   (let [seg-id (:id seg-data)

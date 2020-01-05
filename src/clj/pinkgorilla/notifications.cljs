@@ -1,7 +1,6 @@
 (ns pinkgorilla.notifications
-  (:require 
-   [re-frame.core :as rf :include-macros true]
-  ))
+  (:require
+   [re-frame.core :as rf :include-macros true]))
 
 ;; stolen from:
 ;; https://github.com/baskeboler/cljs-karaoke-client/blob/master/src/main/cljs_karaoke/notifications.cljs
@@ -17,7 +16,6 @@
     :text text})
   ([text]
    (notification :primary text)))
-
 
 (defn ^export add-notification [n]
   (cond

@@ -7,9 +7,7 @@
    [pinkgorilla.ui.text :refer [text]]
    [pinkgorilla.ui.hiccup :refer [html!]]))
 
-
-
-(defn print-table 
+(defn print-table
   ([ks list]
    (-> (with-out-str (clojure.pprint/print-table ks list))
        (text)
@@ -18,8 +16,6 @@
    (-> (with-out-str (clojure.pprint/print-table list))
        (text)
        (html!))))
-
-
 
 (defn nil-to-empty-string [s]
   (if (nil? s) "" s))
@@ -33,16 +29,13 @@
 
 (comment
   (.render (print-table [{:planet "pluto"} {:planet "earth"} {:planet "saturn"}]))
-  
+
   (.render (doc clojure.pprint/print-table))
-  
-  
+
   (def s 'clojure.pprint/print-table)
   `s
-  
+
   (clojure.repl/doc `(symbol "clojure.pprint/print-table"))
-  
-  (clojure.repl/doc clojure.pprint/print-table)
-  
-  )
+
+  (clojure.repl/doc clojure.pprint/print-table))
 

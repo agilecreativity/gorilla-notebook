@@ -39,7 +39,6 @@
     (set! (.-onload reader) #(save-uploaded-string %))
     (.readAsText reader file)))
 
-
 (defn settings-dialog []
   (let [dialog (subscribe [:dialog])
         settings (subscribe [:settings])
@@ -78,7 +77,6 @@
                  :model       (:editor @settings)
                  :on-change   #(dispatch [:settings-set :editor %])]
 
-
                 [gap :size "20px"]
                 [label :label "github token"]
                 [gap :size "5px"]
@@ -100,8 +98,6 @@
                  :max-width "600px"
                  :child [:p {:style {:fond-size "16px" :width "600px"}}
                          "BIG LONG HELP TEXT ON SETTINGS..."]]
-
-
 
                 [h-box :gap "5px" :justify :end
                  :children

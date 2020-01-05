@@ -4,7 +4,6 @@
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
    [pinkgorilla.kernel.core :as kernel]))
 
-
 (reg-event-db
  :show-doc
  (fn [db [_ doc]]
@@ -14,7 +13,6 @@
  :hide-doc
  (fn [db _]
    (assoc-in db [:docs :content] "")))
-
 
 (reg-event-db
  :docs:clojuredocs

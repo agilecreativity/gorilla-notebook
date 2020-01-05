@@ -4,9 +4,7 @@
    [re-frame.core :refer [subscribe dispatch dispatch-sync]]
 
    [dommy.core :as dom :refer-macros [sel1]]
-   [goog.dom :as gdom]
-
-   ))
+   [goog.dom :as gdom]))
 
 (defn palette-dialog
   []

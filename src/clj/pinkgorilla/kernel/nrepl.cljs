@@ -18,10 +18,6 @@
    [pinkgorilla.notifications :refer [add-notification notification]]
    [pinkgorilla.kernel.cljs-helper :refer [send-value]]))
 
-
-
-
-
 (defn render-renderable-meta
   "rendering via the Renderable protocol (needs renderable project)
    (users can define their own render implementations)
@@ -39,12 +35,13 @@
 
 
 ;; TODO : Fixme handle breaking websocket connections
+
+
 (defonce ws-repl
   (atom {:channel     nil ; created by start-ws-repl!
          :session-id  nil ; set by receive-msgs!
          :evaluations {}
          :ciders      {}}))
-
 
 (defn- send-message!
   "awb99: TODO: if websocket is nil, this will throw! (or not?).
@@ -73,7 +70,6 @@
 (defn send-cider-message!
   [message storeval]
   (send-message! :ciders message storeval))
-
 
 (defn get-completions
   "Query the REPL server for autocompletion suggestions. Relies on the cider-nrepl middleware.
@@ -106,9 +102,7 @@
                  js->clj
                  w/keywordize-keys)
         _ (info "value " value " => " data)]
-    data
-    ))
-
+    data))
 
 (defn- process-msg
   "processes an incoming message from websocket that comes from nrepl (and has cider enhancements)
@@ -134,7 +128,7 @@
         ;; value response
         ns
         (let [data (parse-value value)]
-          (send-value segment-id {:value-response data}  ns)) 
+          (send-value segment-id {:value-response data}  ns))
          ; (send-value segment-id (render-renderable-meta data)  ns)) ; 
         ;(dispatch [:evaluator:value-response segment-id {:value-response data } ns])) ;; :ns ns
 
@@ -182,7 +176,6 @@
 
 (defn set-clj-kernel-status [connected session-id]
   (dispatch [:kernel-clj-status-set connected session-id]))
-
 
 (defn- receive-msgs!
   [server-ch]
@@ -235,6 +228,7 @@
 ;;
 ;; pinkgorilla.kernel.nrepl.clj_eval("(+ 7 9 )", (function (r) {console.log ("result!!: " +r);}))
 
+
 (defn ^export clj-eval
   ;"Eval CLJ snippet with callback"
   [snippet callback]
@@ -253,7 +247,6 @@
                                         (.log js/console "clj-eval result: " v2 " type: " (type v2))
                                         (callback v2))))))))
 
-
 (defn ^export clj-eval-sync [result-atom snippet]
   (let [result-chan (chan)]
     (go
@@ -262,8 +255,6 @@
                           (put! result-chan result))))
     (go (reset! result-atom (<! result-chan)))
     result-atom))
-
-
 
 (defn ^export clj [result-atom function-as-string & params]
   (let [_ (.log js/console "params: " params)

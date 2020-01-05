@@ -12,14 +12,12 @@
  (require '[pinkgorilla.kernel.shadowcljs :as cljs-kernel])
  (require '[pinkgorilla.kernel.mock :as cljs-kernel]))
 
-
 (defn eval! [kernel segment-id snippet]
   (case kernel
     :clj (nrepl/eval! segment-id snippet)
     :mock (mock/eval! segment-id snippet)
     :cljs (cljs-kernel/eval! segment-id snippet)
     (info "cannot eval - unknown kernel!")))
-
 
 (defn get-completion-doc [kernel symbol ns callback]
   (case kernel
@@ -32,6 +30,6 @@
     (info "get-completion-doc not implemented for kernel: " kernel)))
 
 (defn resolve-symbol [kernel symbol ns callback]
-   (case kernel
+  (case kernel
     :clj (nrepl/resolve-symbol symbol ns callback)
     (info "get-completion-doc not implemented for kernel: " kernel)))

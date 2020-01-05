@@ -1,9 +1,8 @@
 (ns pinkgorilla.core-test
   (:require
-     [cljs.test :refer-macros [is are deftest testing use-fixtures]]
-     [reagent.core :as reagent :refer [atom]]
-     [pinkgorilla.views :as gv]))
-
+   [cljs.test :refer-macros [is are deftest testing use-fixtures]]
+   [reagent.core :as reagent :refer [atom]]
+   [pinkgorilla.views :as gv]))
 
 (def isClient (not (nil? (try (.-document js/window)
                               (catch js/Object e nil)))))
@@ -25,7 +24,6 @@
         (reagent/flush)
         (.removeChild (.-body js/document) div)))))
 
-
 (defn found-in [re div]
   (let [res (.-innerHTML div)]
     (if (re-find re res)
@@ -33,14 +31,12 @@
       (do (println "Not found: " res)
           false))))
 
-
 (deftest test-component
   (with-mounted-component (gv/hamburger)
     (fn [c div]
       (is div)
       ;; (is (found-in #"Welcome to" div))
       )))
-
 
 (deftest codemirror
   (let [cm (.-CodeMirror js/window)]
@@ -51,8 +47,7 @@
     (is (.. cm -modes -markdown))
     (is (.-colorize cm))
     (is (.-runMode cm))
-    (is (.-showHint cm))
-    ))
+    (is (.-showHint cm))))
 
 ;; [cljsjs.codemirror.addon.edit.closebrackets]
 ;;  [cljsjs.codemirror.addon.edit.matchbrackets]

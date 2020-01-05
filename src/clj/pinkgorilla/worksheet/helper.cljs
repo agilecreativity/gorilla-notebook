@@ -21,6 +21,8 @@
 
 
 ;; TODO: Should only fire when we are active!
+
+
 (defn focus-active-segment
   [component active]
   (let [el (reagent/dom-node component)
@@ -34,9 +36,8 @@
   [:div.error-text text])
 
 (defn console-text [txt]
-  [:div.console-text 
+  [:div.console-text
    [text txt]])
-
 
 (defn exception [e]
   (let [header (if (:cause e) "An exception was caused by: " "Exception thrown")
@@ -72,7 +73,6 @@
       [:span (get ex "class")]
       [:span (get ex "class")]]
      [:ul frame-components]]))
-
 
 (defn colorize-cm!
   [seg-comp]

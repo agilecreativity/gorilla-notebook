@@ -3,7 +3,6 @@
 ;; https://github.com/timgilbert/haunting-refrain-posh/blob/develop/src/cljs/haunting_refrain/fx/local_storage.cljs
 
 
-
 (comment
 
   (ns haunting-refrain.fx.local-storage
@@ -21,6 +20,4 @@
     "Persist an object into localStorage at the given key."
     [[key value]]
     (assoc! hp/local-storage key value))
-  (reg-fx :persist! persist-effect)
-  
-  )
+  (reg-fx :persist! persist-effect))

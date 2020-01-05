@@ -1,5 +1,5 @@
 (ns pinkgorilla.explore.utils
-  (:require 
+  (:require
    [clj-time.core :as t]
    [clj-time.coerce :as tc]))
 

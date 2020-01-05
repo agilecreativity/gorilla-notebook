@@ -1,17 +1,17 @@
 (ns pinkgorilla.jee-interop
   (:use compojure.core)
   (:require
-    [clojure.tools.logging :as log :refer (info)]
+   [clojure.tools.logging :as log :refer (info)]
    ;; [cheshire.core :as json]
    #_(:refer [clojure.data.json :rename {write-str generate-string
                                          read-str  parse-string}])
-    [clojure.data.json :as json]
-    [clojure.walk :as w]
-    [clojure.pprint :as pp]
-    [nrepl.server :as nrepl-server]
-    [nrepl.core :as nrepl]
-    [nrepl [transport :as transport]]
-    [pinkgorilla.middleware.cider :as mw-cider]))
+   [clojure.data.json :as json]
+   [clojure.walk :as w]
+   [clojure.pprint :as pp]
+   [nrepl.server :as nrepl-server]
+   [nrepl.core :as nrepl]
+   [nrepl [transport :as transport]]
+   [pinkgorilla.middleware.cider :as mw-cider]))
 
 (def handler (atom (mw-cider/cider-handler)))
 

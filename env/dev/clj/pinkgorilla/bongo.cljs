@@ -8,13 +8,9 @@
 
 (defn reagent-component-example []
   [:div "hey there"
-    [:div.flex-auto.sans-serif.f6.bg-white.bb.b--near-white.bw2
-     [:div.sans-serif.pa2.f7.b.flex.items-center.pointer.hover-opacity-parent
-       [:span "asdf"]
-      
-     ]]
-      
-      ])
+   [:div.flex-auto.sans-serif.f6.bg-white.bb.b--near-white.bw2
+    [:div.sans-serif.pa2.f7.b.flex.items-center.pointer.hover-opacity-parent
+     [:span "asdf"]]]])
 
 (defcard reagent-component
   "lorenz ipsum"

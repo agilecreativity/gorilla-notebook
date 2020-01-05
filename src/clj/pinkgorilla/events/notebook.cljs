@@ -14,7 +14,6 @@
    [pinkgorilla.kernel.core :as kernel]
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler check-and-throw standard-interceptors]]))
 
-
 (defn change-to
   [db change-fn]
   (if-let [active-id (get-in db [:worksheet :active-segment])]
@@ -182,7 +181,6 @@
  [(conj standard-interceptors (undoable "Insert segment"))]
  (partial insert-segment inc))
 
-
 (reg-event-db
  :initialize-new-worksheet
  (fn [db _]
@@ -208,6 +206,8 @@
 
 
 ;; Using re-frame undo instead
+
+
 #_(reg-event-db
    :worksheet:undelete
    [standard-interceptors]

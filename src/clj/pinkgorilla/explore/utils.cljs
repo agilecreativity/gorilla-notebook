@@ -1,5 +1,5 @@
 (ns pinkgorilla.explore.utils
-  (:require 
+  (:require
    [clojure.string :as s]
    [cljs-time.core :as time]
    [cljs-time.format :as tf]))
@@ -78,5 +78,5 @@
     (map (comp s/lower-case s/trim) (s/split tags ","))))
 
 
-     
+
     ;  (set (u/split-tags tags)))))

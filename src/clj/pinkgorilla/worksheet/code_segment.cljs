@@ -7,23 +7,19 @@
    [pinkgorilla.output.core :refer [output-fn]]
    [pinkgorilla.worksheet.helper :refer [init-cm! focus-active-segment error-text console-text exception]]))
 
-
 (defn output-view-unsafe [seg-id segment]
   (try
     (if-let [value-output (not-empty (:value-response @segment))]
       (let [output-value (output-fn value-output)
-            component ^{:key :value-response} [:div.output>pre [output-value value-output seg-id]]
-            ]
+            component ^{:key :value-response} [:div.output>pre [output-value value-output seg-id]]]
         ;(println "returning reagent: " component)
-        component
+        component))
 
-        ))
     (catch js/Error e [:p (str "exception rendering cell output: " (. e -message))])))
 
 (defn output-view [seg-id segment]
   [rc/catch
    [output-view-unsafe seg-id segment]])
-
 
 (defn code-segment-unsafe
   [seg-data editor-options]
@@ -65,14 +61,13 @@
                                                (if @is-queued
                                                  " running"
                                                  ""))
-                                    other-children [
-                                                    main-component
+                                    other-children [main-component
                                                     error-comp
                                                     ex-comp
                                                     console-comp
                                                     output-comp
                                                     footer-comp]]
-                                
+
                                 [:<>
                                  (apply conj [div-kw
                                               {:class    class
@@ -80,9 +75,7 @@
                                         (filter some? other-children))
                                  ; menu is at bottom even though I want it n top, but codemirror is hard wired
                                  ; and expects that code is first dom element
-                                 (if @is-active [cell-menu segment])
-                                 ]
-                                ))})))
+                                 (if @is-active [cell-menu segment])]))})))
 
 (defn code-segment [seg-data editor-options]
   [rc/catch

@@ -1,7 +1,7 @@
 (ns pinkgorilla.cli
   (:require
-     [clojure.tools.cli :as cli]
-     [clojure.string :as string]))
+   [clojure.tools.cli :as cli]
+   [clojure.string :as string]))
 
 ;; Shamelessly stolen from
 ;; https://github.com/gorillalabs/gorilla-repl/blob/develop/src/gorilla_repl/cli.clj
@@ -9,11 +9,9 @@
 (def cli-options                                            ;; see https://github.com/clojure/tools.cli#example-usage
   ;; An option with a required argument
   (let [glob-expression #"[0-9\?\*\[\]\-\^\{\}\\\,]*"
-        env-expression #"[0-9a-zA-Z\-\.]*"
-        ]
+        env-expression #"[0-9a-zA-Z\-\.]*"]
     [#_["-s" "--standalone" "Start nrepl server inside GorillaREPL process."
-        :id :standalone
-        ]
+        :id :standalone]
 
      ["-p" "--nrepl-port PORT" "Port number of the nrepl server."
       :default nil
@@ -37,8 +35,7 @@
       ;; if the default value's string representation is very ugly
       :default-desc "localhost"]
      ["-c" "--runtime-config runtime-config" "Runtime config edn file"
-      :default nil
-      ]
+      :default nil]
      ;; [nil "--project PROJECT" "name of the project."]
 
      [nil "--help"]]))
@@ -50,8 +47,7 @@
         "Options:"
         options-summary
         ""
-        ""
-        ]
+        ""]
        (string/join \newline)))
 
 (defn error-msg [errors]
@@ -61,7 +57,6 @@
 (defn exit [status msg]
   (println msg)
   (System/exit status))
-
 
 (defn parse-opts [args]
   (let [{:keys [options arguments errors summary] :as parsed} (cli/parse-opts args cli-options)]

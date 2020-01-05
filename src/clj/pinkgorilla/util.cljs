@@ -12,6 +12,5 @@
                           ""))]
     (str proto ":" (:host app-url) port-postfix (str/replace (:path app-url) #"[^/]+$" path))))
 
-
 (defn application-url []
   (url/url (-> js/window .-location .-href)))

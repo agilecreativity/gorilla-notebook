@@ -11,7 +11,6 @@
    [pinkgorilla.ui.combo :refer [combo]]
    [pinkgorilla.ui.slider :refer [slider]]))
 
-
 (defn clj->json
   [ds]
   (.stringify js/JSON (clj->js ds)))
@@ -23,7 +22,6 @@
    [:p "You need to specify the fully-qualified name of the widget"]
    [:p "Example: widget.hello/world"]
    [:p (str "You have entered: " (clj->json name))]])
-
 
 (defn resolve-function [s]
   (let [;pinkgorilla.output.reagentwidget (cljs.core/resolve (symbol widget-name)) ; this is what we want, but resolve is a macro
@@ -58,8 +56,6 @@
    {:name "bongo"
     :time "5 before 12"}))
 
-
-
 (defn resolve-functions
   "resolve function-as symbol to function references in the reagent-hickup-map.
    Leaves regular hiccup data unchanged."
@@ -85,7 +81,6 @@
        (resolve-state x)
        x))
    reagent-hiccup-syntax))
-
 
 (defn output-reagent
   [output _]

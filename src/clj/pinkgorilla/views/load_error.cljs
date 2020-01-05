@@ -30,9 +30,8 @@
 
         msg]]]]]])
 
-
 #_(defn load-error-dialog []
-  (let [dialog (subscribe [:dialog])
-        meta (subscribe [:meta])
-        closefn (fn [event] (dispatch [:dialog-hide :meta]))]
-    (when (:meta @dialog))))
+    (let [dialog (subscribe [:dialog])
+          meta (subscribe [:meta])
+          closefn (fn [event] (dispatch [:dialog-hide :meta]))]
+      (when (:meta @dialog))))

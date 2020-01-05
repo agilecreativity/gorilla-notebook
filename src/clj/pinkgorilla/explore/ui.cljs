@@ -1,5 +1,5 @@
 (ns pinkgorilla.explore.ui
-  (:require 
+  (:require
    [reagent.core :refer [atom] :as r]
    [re-frame.core :refer [dispatch]]
    [clojure.string :as str]

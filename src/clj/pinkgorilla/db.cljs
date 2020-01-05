@@ -6,7 +6,6 @@
    [cljs.reader]
    [pinkgorilla.keybindings :refer [all-commands visible-commands]]))
 
-
 (def debug?
   ^boolean js/goog.DEBUG)
 
@@ -42,7 +41,6 @@
       :active                                               ;; only todos whose :done is false
       :done                                                 ;; only todos whose :done is true
       })
-
 
 (s/def ::db (s/keys :req-un
                     ;; [::docs ::config ::segments ::segment-order]

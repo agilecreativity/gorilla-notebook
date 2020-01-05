@@ -4,7 +4,7 @@
    ;[ajax.core :refer [GET POST DELETE PUT]]
    ;[accountant.core :as a]
    ;[open-source.routes :as r]
-    [pinkgorilla.routes :as r]
+   [pinkgorilla.routes :as r]
    [pinkgorilla.explore.utils :as u]
    ;[open-source.routes :as r]
    ;[open-source.db :as db]
@@ -34,6 +34,8 @@
 
 
 ;; filter by tag
+
+
 (reg-event-db
  :toggle-tag
  [trim-v]
@@ -43,11 +45,11 @@
          new-tags (if (tags tag) (disj tags tag) (conj tags tag))]
      (println "path:" (r/projects-path {:query-params {:tags (clojure.string/join "," (sort new-tags))}}))
      ;(r/nav (r/projects-path {:query-params {:tags (clojure.string/join "," (sort new-tags))}}))
-     (rnav  {:tags (clojure.string/join "," (sort new-tags))} )
+     (rnav  {:tags (clojure.string/join "," (sort new-tags))})
      db)))
 
 ;; filter by text 
-(reg-event-db 
+(reg-event-db
  :edit-field
  [trim-v]
  (fn [db [path val]] (assoc-in db path val)))

@@ -15,7 +15,6 @@
       (.bindGlobal mousetrap kb-val
                    #(dispatch-sync handler)))))
 
-
 (defn install-commands
   [command-keymap]
   ;; ** Patch Mousetrap **
@@ -33,6 +32,8 @@
 
 
 ;; TODO: Hacky editor access
+
+
 #_(defn clojuredocs
     [app]
     (let [active-id (get-in app [:worksheet :active-segment])
@@ -156,13 +157,13 @@
 
 ;; visible commands (used in db)
 
+
 (defn- command-item
   [item]
   (let [kb (:kb item)
         shortcut (or kb "&nbsp;")]
     (merge item {:text (:desc item)
                  :desc (str "<div class= \"command\" >" (:desc item) "</div><div class= \"command-shortcut\" >" shortcut "</div>")})))
-
 
 (def visible-commands
   (->> all-commands

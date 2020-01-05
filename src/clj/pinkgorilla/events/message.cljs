@@ -3,7 +3,6 @@
    [re-frame.core :as re-frame :refer [reg-event-db dispatch]]
    [pinkgorilla.events.helper :refer [standard-interceptors]]))
 
-
 (defn display-message
   [db [_ message timeout]]
   (when timeout

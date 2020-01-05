@@ -1,6 +1,6 @@
 (ns pinkgorilla.output.html
   (:require
-    [pinkgorilla.output.hack :refer [temp-comp-hack]]))
+   [pinkgorilla.output.hack :refer [temp-comp-hack]]))
 
 ;; Scripts in Injected html are not being evaluated.
 ;; This is what worked for GorillaRepl
@@ -29,6 +29,8 @@
 
 
 ;; TODO Ugh, old stylesheets persist as html so we get a string
+
+
 (defn output-html
   [output _]
   (if-let [content (:content output)]

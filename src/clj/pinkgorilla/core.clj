@@ -1,25 +1,23 @@
 (ns pinkgorilla.core
   (:require
-    [clojure.set :as set]
-    [clojure.java.io :as io]
-    [pinkgorilla.handle :as handle]
-    [pinkgorilla.jetty9-ws-relay :as ws-relay]
-    [pinkgorilla.route :as route]
-    [pinkgorilla.ui.hiccup_renderer]                        ; this is needed to bring the render implementations into scope
-    [pinkgorilla.middleware.render-values]
+   [clojure.set :as set]
+   [clojure.java.io :as io]
+   [pinkgorilla.handle :as handle]
+   [pinkgorilla.jetty9-ws-relay :as ws-relay]
+   [pinkgorilla.route :as route]
+   [pinkgorilla.ui.hiccup_renderer]                        ; this is needed to bring the render implementations into scope
+   [pinkgorilla.middleware.render-values]
     ;[pinkgorilla.ui.gorilla-renderable]
-    [pinkgorilla.storage.explore-handler :refer [update-excludes]]
+   [pinkgorilla.storage.explore-handler :refer [update-excludes]]
 
-    [pinkgorilla.system :as sys]
-    [pinkgorilla.cli :as cli])
+   [pinkgorilla.system :as sys]
+   [pinkgorilla.cli :as cli])
   (:import (java.io PushbackReader))
   (:gen-class))
-
 
 #_(defn- load-properties [name type]
     (when-let [resource (resolve-file name type)]
       (load-properties-from-resource resource)))
-
 
 (defn load-edn [name]
   (when-let [resource (io/file name)]
@@ -31,6 +29,8 @@
 
 ;; TODO WIP, we can to better
 ;; lein plugin entry point
+
+
 (defn run-gorilla-server
   [conf]
   (println "Got conf " conf)
@@ -55,8 +55,7 @@
     ;; (println "Using project" project)
     ;; asynchronously check for updates
     ;; (version/check-for-update version)
-    (let [
-          s (sys/start (merge runtime-config
+    (let [s (sys/start (merge runtime-config
                               {:routes          routes
                                :nrepl-port      nrepl-requested-port
                                :nrepl-host      (:nrepl-host conf)

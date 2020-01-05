@@ -4,11 +4,12 @@
    [reagent.core :as reagent]
    [re-frame.core :refer [dispatch]]
 
-   [pinkgorilla.output.hack :refer [value-wrap]]
-   ))
+   [pinkgorilla.output.hack :refer [value-wrap]]))
 
 
 ;; see renderer.js
+
+
 (defn output-vega
   [output seg-id]
   ;; TODO: Check vega error handling

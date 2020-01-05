@@ -1,5 +1,5 @@
 (ns pinkgorilla.explore.form-helpers
-  (:require 
+  (:require
    [re-frame.core :refer [dispatch-sync dispatch subscribe]]
    [reagent.core :refer [atom] :as r]
    [clojure.string :as s]

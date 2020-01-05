@@ -18,6 +18,8 @@
 
 
 ;; Not as nice as doall, but doall does not work with piped transports / read-timeout (in mem)
+
+
 (defn- process-replies
   [reply-fn contains-pred replies-seq]
   (loop [s replies-seq]
@@ -72,7 +74,6 @@
     [handler]
     (let [store (mem/memory-store)]
       (session/wrap-session handler {:store store :cookie-name "gorilla-session"})))
-
 
 (defn on-receive-net
   "Relays messages back and forth to an nREPL server. A connection to the nREPL server must have

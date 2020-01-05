@@ -1,11 +1,10 @@
 (ns pinkgorilla.editor.editor-support
   "Connects parinfer mode functions to CodeMirror"
   (:require
-    [pinkgorilla.editor.parinfer :refer [indent-mode paren-mode]]))
-
+   [pinkgorilla.editor.parinfer :refer [indent-mode paren-mode]]))
 
 (defonce state
-         (atom {}))
+  (atom {}))
 
 (defprotocol IEditor
   "Custom data/methods for a CodeMirror editor."
@@ -76,8 +75,7 @@
                  :cursor-dx   (compute-cursor-dx cursor change)}
 
         ;; key- (cm-key cm)
-        options (merge options (get-in @state [
-                                               ;; key-
+        options (merge options (get-in @state [;; key-
                                                :options]))
         mode (or (get-in @state [;; key-
                                  :mode]) :indent-mode)

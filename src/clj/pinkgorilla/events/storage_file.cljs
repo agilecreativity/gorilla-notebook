@@ -22,8 +22,6 @@
                  :on-success      [:process-files-response]
                  :on-failure      [:process-error-response "browse-file-local"]}}))
 
-
-
 (reg-event-db
  :process-files-response
  [standard-interceptors]

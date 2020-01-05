@@ -1,16 +1,16 @@
 (ns pinkgorilla.repl
   (:require
-    [clojure.tools.logging :refer (info)]
-    [clojure.pprint :refer [pprint]]
-    [shadow.cljs.devtools.api :as shadow]
-    [shadow.cljs.devtools.server.nrepl :as shadow-nrepl]
-    [shadow.cljs.devtools.server :as shadow-server]
-    [nrepl.server :as nrepl :refer [start-server stop-server]]
-    [cider.nrepl :as cider-nrepl]
+   [clojure.tools.logging :refer (info)]
+   [clojure.pprint :refer [pprint]]
+   [shadow.cljs.devtools.api :as shadow]
+   [shadow.cljs.devtools.server.nrepl :as shadow-nrepl]
+   [shadow.cljs.devtools.server :as shadow-server]
+   [nrepl.server :as nrepl :refer [start-server stop-server]]
+   [cider.nrepl :as cider-nrepl]
 
-    [pinkgorilla.core :as core]
+   [pinkgorilla.core :as core]
     ;; [pinkgorilla.system :as gsys]
-    [pinkgorilla.cli :as cli]))
+   [pinkgorilla.cli :as cli]))
 
 ;; (def system (atom (sys/create-figwheel-system cfg)))
 ;; (def system (atom (sys/figwheel-system cfg)))
@@ -85,8 +85,6 @@
                     ;; :watch "in"
                     :reader
                     :output-dir "out"))
-
-
 
 (def cljs-build :app-with-cljs-kernel-dev)
 (def gorilla-default-cli-config {:port 9000})

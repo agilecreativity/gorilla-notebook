@@ -140,8 +140,8 @@
                   ["vcs" "commit" "Begin %s"]]
 
   :deploy-repositories [["clojars" {:url           "https://clojars.org/repo"
-                                    :username      :env/clojars_username
-                                    :password      :env/clojars_password
+                                    :username      :env/release_username
+                                    :password      :env/release_password
                                     :sign-releases false}]]
 
 
@@ -161,6 +161,19 @@
                                           :nrepl-middleware [;; cider.piggieback/wrap-cljs-repl
                                                              shadow.cljs.devtools.server.nrepl/middleware]}
                          :prep-tasks     ^:replace ["javac" "compile"]
+                         :plugins      [;; [refactor-nrepl "2.2.0" :exclusions [org.clojure/clojure]]
+                                        [lein-cljfmt "0.6.6"]
+                                        [lein-cloverage "1.1.2"]]
+                         :cloverage    {:codecov? true
+                                  ;; In case we want to exclude stuff
+                                  ;; :ns-exclude-regex [#".*util.instrument"]
+                                  ;; :test-ns-regex [#"^((?!debug-integration-test).)*$$"]
+                                        }
+                   ;; TODO : Make cljfmt really nice : https://devhub.io/repos/bbatsov-cljfmt
+                         :cljfmt       {:indents {as->                [[:inner 0]]
+                                                  with-debug-bindings [[:inner 0]]
+                                                  merge-meta          [[:inner 0]]
+                                                  try-if-let          [[:block 1]]}}
                          :dependencies   [;; [thheller/shadow-cljs "2.8.80"]  ;; Cannot overrides default deps here
                                           ;; [com.google.javascript/closure-compiler-unshaded "v20191027"]
                                           ;; Just moving shadow here blows up via :prep-tasks
@@ -188,17 +201,14 @@
                                           ;; [org.clojure/data.xml "0.0.8"]
                                           [me.lomin/component-restart "0.1.2"]]
 
-                       :source-paths   ^:replace ["src/clj" "test" "env/dev/clj"]
+                         :source-paths   ^:replace ["src/clj" "test" "env/dev/clj"]
 
-                       :resource-paths ^:replace ["resources" "target/cljsbuild" "env/dev/resources"]
+                         :resource-paths ^:replace ["resources" "target/cljsbuild" "env/dev/resources"]
 
-                       :plugins        [;; [refactor-nrepl "2.2.0" :exclusions [org.clojure/clojure]]
-                                        ]
+                         :injections     [(require 'pjstadig.humane-test-output)
+                                          (pjstadig.humane-test-output/activate!)]
 
-                       :injections     [(require 'pjstadig.humane-test-output)
-                                        (pjstadig.humane-test-output/activate!)]
-
-                       :env            ^:replace {:dev true}}
+                         :env            ^:replace {:dev true}}
 
              :cljs      {:dependencies [[thheller/shadow-cljs "2.8.80"]
 
@@ -255,8 +265,6 @@
                                         ;[cider/piggieback "0.4.2"
                                         ; ;; :exclusions [org.clojure/clojurescript]
                                         ; ]
-                                        ;; [doo "0.1.11"]
-                                        ;; [re-frisk "0.5.4.1"]
                                         [day8.re-frame/test "0.1.5"]
                                         [nubank/workspaces "1.0.13"]
                                         #_[devcards "0.2.6"
@@ -269,25 +277,6 @@
                                         ]
 
                          }
-             :cloverage [:test
-                         {:plugins   [[lein-cloverage "1.1.2"]]
-                          ;; :dependencies [[cloverage "1.1.2"]]
-                          :cloverage {:codecov? true
-                                      ;; In case we want to exclude stuff
-                                      ;; :ns-exclude-regex [#".*util.instrument"]
-                                      ;; :test-ns-regex [#"^((?!debug-integration-test).)*$$"]
-                                      }
-                          }]
-
-
-             ;; TODO : Make cljfmt really nice : https://devhub.io/repos/bbatsov-cljfmt
-             :cljfmt    [:test
-                         {:plugins [[lein-cljfmt "0.6.6"]]
-                          :cljfmt  {:indents {as->                [[:inner 0]]
-                                              with-debug-bindings [[:inner 0]]
-                                              merge-meta          [[:inner 0]]
-                                              try-if-let          [[:block 1]]}}}]
-
              :uberjar   {:hooks       [minify-assets.plugin/hooks]
                          :aot         :all
                          :omit-source true}

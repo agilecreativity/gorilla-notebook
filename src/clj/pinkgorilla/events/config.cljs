@@ -23,7 +23,6 @@
         db (merge initial-db {:base-path base-path})]
     db))
 
-
 (reg-event-db
  :initialize-app-db
  (fn [_ [_ app-url]]
@@ -47,6 +46,8 @@
 
 
 ; used by process config reponse below.
+
+
 (def install-commands
   (re-frame.core/->interceptor
    :id :install-commands
@@ -55,13 +56,12 @@
             (keybindings/install-commands (get-in context [:coeffects :db :all-commands]))
             context)))
 
-
 (reg-event-fx
-  :process-config-response
-  [install-commands]
-  (fn [cofx [_ response]]
-    {:db        (assoc-in (:db cofx) [:config] response)
-     :dispatch [:init-cljs]}))   ;; return effects
+ :process-config-response
+ [install-commands]
+ (fn [cofx [_ response]]
+   {:db        (assoc-in (:db cofx) [:config] response)
+    :dispatch [:init-cljs]}))   ;; return effects
 
 (reg-event-db
  :toggle.reframe10x

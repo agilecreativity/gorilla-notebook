@@ -19,3 +19,5 @@ ws/
 /figwheel_server.log
 /gorilla-repl.log
 .shadow-cljs/
+resources/gorilla-repl-client/css/tailwind.css
+resources/gorilla-repl-client/gorilla.min.css

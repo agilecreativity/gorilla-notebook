@@ -16,8 +16,6 @@
    [pinkgorilla.storage.repo]
    [pinkgorilla.storage.bitbucket]))
 
-
-
 (reg-event-fx
  :explore-load-repository
  (fn [{:keys [db]} [_ repository]]
@@ -30,7 +28,6 @@
                  :on-success      [:explore-response]
                  :on-failure      [:process-error-response "load-explore-data"]}}))
 
-
 (defn remove-repo-id [item]
   (if (= (:type item) :repo)
     (dissoc item :id)
@@ -39,18 +36,15 @@
 (defn add-storage [item]
   (assoc item :storage (create-storage item)))
 
-
 (defn preprocess-item [start-index idx item]
   (-> item
       (assoc :type (keyword (:type item)) :index (+ start-index idx))
       (remove-repo-id)
       (add-storage)))
 
-
 (defn preprocess-list [start-index response]
   (let [list (:data response)]
     (vec (map-indexed (partial preprocess-item start-index) list))))
-
 
 (reg-event-db
  :explore-response
@@ -63,13 +57,11 @@
        ;(assoc :message nil)
          ))))
 
-
 (reg-event-db
  :goto-main
  [standard-interceptors]
  (fn [db _]
    (assoc-in db [:main] :notebook)))
-
 
 (info "registering :explore-load ..")
 

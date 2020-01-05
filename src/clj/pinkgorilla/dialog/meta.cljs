@@ -14,8 +14,6 @@
 
    [pinkgorilla.explore.meta :refer [form]]))
 
-
-
 (defn meta-dialog []
   (let [dialog (subscribe [:dialog])
         meta (subscribe [:meta])

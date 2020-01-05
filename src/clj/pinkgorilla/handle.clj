@@ -43,6 +43,8 @@
 
 
 ;; configuration information that will be made available to the webapp
+
+
 (def ^:private conf (atom {}))
 
 ;; API endpoint for getting webapp configuration information
@@ -55,9 +57,11 @@
 
 
 ;; configuration information that will be made available to the webapp
+
+
 #_(defn set-config
-  [k v]
-  (swap! conf assoc k v))
+    [k v]
+    (swap! conf assoc k v))
 
 
 

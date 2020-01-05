@@ -32,7 +32,6 @@
                      :on-success      [:process-load-file-response storage]
                      :on-failure      [:process-error-response]}})))
 
-
 (reg-event-fx
  :edit-file
  (fn [{:keys [db]} [_ params]]
@@ -55,7 +54,7 @@
                    :timeout         15000
                    :response-format (ajax/json-response-format {:keywords? true})
                    :on-success      [:process-load-file-response storage]
-                   :on-failure     [:process-load-file-response-error storage] }})))
+                   :on-failure     [:process-load-file-response-error storage]}})))
 
 (reg-event-db
  :process-load-file-response-error
@@ -65,13 +64,11 @@
    (dispatch [:notification-add (notification :warning "load-notebook")])
    (let [_ (info "Load Response Error:\n" response-body)
          content (:content response-body)
-         _ (info "Content Only:\n" content)
-         ]
+         _ (info "Content Only:\n" content)]
      (assoc db
             :worksheet {:meta {}}
             :storage-load-error content
             :storage nil))))
-
 
 (reg-event-db
  :process-load-file-response
@@ -127,7 +124,6 @@
                    :response-format (ajax/json-response-format {:keywords? true}) ;(ajax/transit-response-format) ;; response encoding TRANSIT
                    :on-success      [:after-save-success storage]
                    :on-failure      [:notification-add (notification :warning "save-notebook ERROR!!")]}})))
-
 
 (defn hack-gist [storage result db]
   (if (and (= (:id storage) nil)

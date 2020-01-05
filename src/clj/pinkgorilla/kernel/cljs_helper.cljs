@@ -11,6 +11,7 @@
 
 ; dispatch results to reframe
 
+
 (defn send-console [segment-id result]
   (dispatch
    [:evaluator:console-response
@@ -54,7 +55,6 @@
         ]
     response))
 
-
 (defn render-renderable-meta
   "rendering via the Renderable protocol (needs renderable project)
    (users can define their own render implementations)"
@@ -71,6 +71,8 @@
 ;; result:
 ;; [:ok value]
 ;; [:error #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[TypeError TypeError: bongo.trott.g is undefined]}]
+
+
 (defn send-result-eval [segment-id result]
   (let [[type data] result]
     (info "cljs eval result:" result)

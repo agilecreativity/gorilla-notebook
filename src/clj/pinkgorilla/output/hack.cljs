@@ -1,6 +1,5 @@
 (ns pinkgorilla.output.hack)
 
-
 (defn temp-comp-hack
   [no-kw]
   (if no-kw (into [(keyword (first no-kw))]
