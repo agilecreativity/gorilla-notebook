@@ -65,7 +65,7 @@
 
                  ;pinkgorilla sub projects
                  [org.pinkgorilla/gorilla-renderable "2.1.22"] ; kernels (clj and cljs) needs renderable (cljs kernel is implemented in notebook)
-                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.4"
+                 [org.pinkgorilla/kernel-cljs-shadowdeps "0.0.5"
                   :exclusions [*/*]]
                  [org.pinkgorilla/notebook-encoding "0.0.21"]        ; notebook encoding
                  [org.pinkgorilla/gorilla-explore "0.1.7"] ; notebook exploration
@@ -129,7 +129,6 @@
   :prep-tasks ["javac"
                "compile"
                "tailwind-development"
-               "build-ci"
                "build-shadow-without-cljs-kernel"
                "build-shadow-with-cljs-kernel"]
 
@@ -150,7 +149,7 @@
 
   ;; We might chose to leverage the shell escape hatch to get out of dependency hell
   :aliases {"tailwind-development"             ["shell" "npm" "run" "tailwind-development"]
-            "build-ci"                         ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
+            "build-shadow-ci"                  ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":ci"]
             "watch-cards"                      ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "watch" ":cards"]
             "browser-test"                     ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":browser-test"]
             "build-shadow-with-cljs-kernel"    ["with-profile" "+cljs" "run" "-m" "shadow.cljs.devtools.cli" "compile" ":app-with-cljs-kernel"]
@@ -289,15 +288,6 @@
                                               merge-meta          [[:inner 0]]
                                               try-if-let          [[:block 1]]}}}]
 
-             ;; Appears clj-kondo is the new eastwood
-             ;; :eastwood
-             #_[:test
-                {:plugins  [[jonase/eastwood "0.3.5"]]
-                 :eastwood {:config-files ["eastwood.clj"]
-                            ;; TODO: Add :test-paths once
-                            ;; https://github.com/jonase/eastwood/issues/298
-                            ;; is resolved
-                            :namespaces   [:source-paths]}}]
              :uberjar   {:hooks       [minify-assets.plugin/hooks]
                          :aot         :all
                          :omit-source true}
